@@ -1,0 +1,27 @@
+@use '../styles/variables' as *;
+* {
+  //outline: red 1px solid;
+}
+
+body {
+  background: $bg-gradient;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 2rem);
+  padding: 2rem;
+  margin: 1rem 1rem 1rem 0;
+  background-color: $text;
+  border-radius: 1rem;
+  margin-left: 200px;
+
+  .dashboard-content {
+    h1{
+      color: $ebony-clay;
+    }
+  }
+}

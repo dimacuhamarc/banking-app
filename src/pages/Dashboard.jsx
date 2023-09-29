@@ -1,8 +1,15 @@
+import DashboardNav from "../components/Dashboard/DashboardNav/DashboardNav";
+import '../styles/Dashboard.scss';
 
 const Dashboard = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
+      <DashboardNav />
+      <div className='dashboard'>
+        <div className='dashboard-content'>
+          <h1>Dashboard</h1>
+        </div>
+      </div>
     </div>
   );
 };

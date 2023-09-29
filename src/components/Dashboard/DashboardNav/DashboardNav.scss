@@ -1,0 +1,64 @@
+@use '../../../styles/variables' as *;
+
+.nav {
+  height: 100vh;
+  width: 200px;
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2rem;
+
+  .brand {
+    align-self: center;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+      margin: 1rem 0;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+    a {
+      text-decoration: none;
+      font-size: 1rem;
+      width: calc(100% + 4rem);
+      padding: 0.5rem 1rem;
+      border-radius: 1rem 0 0 1rem;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        transform: translateX(1rem);
+        width: calc(100% + 2rem);
+        border-radius: 1rem 0 0 1rem;
+        background-color: $text;
+        color: $fountain-blue;
+        border-right: $cascade 5px solid;
+      }
+      :active:hover {
+        transform: translateX(0);
+      }      
+    }
+  }
+}
+
+.active {  
+  border-radius: 1rem 0 0 1rem;
+  background-color: $text;
+  color: $rock-blue;
+  font-weight: 600;
+  border-right: $cascade 5px solid;
+}
+
+
+
+
