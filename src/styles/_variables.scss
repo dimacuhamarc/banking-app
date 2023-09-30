@@ -7,9 +7,15 @@ $rock-blue: #9bc0cc;
 $fountain-blue: #6baec9;
 $ebony-clay: #2f3444;
 $matrix: #b4645c;
+$orange: #d1a66d;
+$dark-matrix: #bd4237;
 $green: #a3c9a8;
+$white: #fff;
 
 
 $bg-gradient: linear-gradient(to bottom, $blue-bayoux, $cascade);
+$bg-gradient1: linear-gradient(to bottom, $white, $bizarre);
+$bg-gradient2: linear-gradient(to left, $white, $cascade);
+$bg-gradient3: linear-gradient(162deg, $blue-bayoux 65%, $orange 98%);
 $gradient: $blue-bayoux, $cascade;
 $text: #f6f6f6;

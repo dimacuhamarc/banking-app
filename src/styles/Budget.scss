@@ -1,0 +1,58 @@
+@use '../styles/variables' as *;
+
+.budget-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 30px;
+
+    .first-container {
+        flex: 1;
+        margin-right: 20px;
+
+        .graph {
+            width: 23rem;
+            height: 325px;
+            margin-bottom: 40px;
+            padding: 30px;
+            border: none;
+            background: $bg-gradient1 no-repeat fixed;
+            border-radius: 1rem;
+            box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+            margin-bottom: 25px;
+        }
+
+        .calendar {
+            width: 23rem;
+            border: none;
+            // background: $bg-gradient no-repeat fixed;
+            background: $bg-gradient2 no-repeat fixed;
+            padding: 30px;
+            border-radius: 1rem;
+            font-size: 20px;
+            color: $cod-gray;
+            box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+
+
+            button {
+                border: none;
+                background: transparent;
+                color: $cod-gray;
+                font-size: 18px;
+            }
+
+            *{color: $cod-gray;}
+        }
+    }
+
+    .second-container {
+        flex: 3;
+        height: 65vh;
+        background: $bg-gradient2 no-repeat fixed;
+        padding: 30px;
+        border-radius: 1rem;
+        color: $white !important;
+        overflow: auto;
+        box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+    }
+}

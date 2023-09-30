@@ -1,0 +1,121 @@
+@use '../../../styles/variables' as *;
+
+.expense-table {
+  h2 {
+    color: $cod-gray !important;
+  }
+}
+
+.modal-expense-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    .modal-expense {
+      background-color: $white;
+      padding: 20px;
+      border-radius: 1rem;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 30px;
+      margin-bottom: 10px;
+      border: 1px solid $bizarre;
+      border-radius: 1rem;
+      margin: 10px;
+      font-size: 30px;
+    }
+  
+    input[name="expense-input"], input[name="due-date"] {
+      width: 300px;
+      font-size: 16px;
+      padding: 5px 10px 5px 10px;
+    }
+
+    .modal-content button {
+      width: 82px;
+      padding: 10px 20px;
+      margin: 10px 10px 10px 10px;
+      background-color: $breaker-bay;
+      color: $white;
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+    }
+    
+    .modal-content button:last-child {
+      margin-right: 0;
+      background-color: $bizarre;
+    }
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  table th,
+  table td {
+    border: 1px solid $fountain-blue;
+    padding: 10px;
+    text-align: left;
+    border-radius: 1rem;
+    color: $cod-gray !important;
+  }
+  
+  /* add expense button */
+  .add-exp-button, .save-cancel-button  {
+    background-color: $breaker-bay;
+    color: $text !important;
+    border: none;
+    border-radius: 1rem;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 20px 0 10px 0;
+
+    &:hover {
+        background-color: $ebony-clay;
+    }
+  }
+
+  .save-cancel-button {
+    width: 82px;
+    margin: 20px 5px 0 5px;
+  }
+
+  /* edit and del buttons in the table */
+  table button {
+    background-color: $breaker-bay;
+    color: $text !important;
+    border: none;
+    border-radius: 1rem;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 3px;
+
+    &:hover {
+        background-color: $ebony-clay;
+    }
+  }
+
+
+  table button:last-child {
+    background-color: $matrix;
+
+    &:hover {
+        background-color: $dark-matrix;
+    }
+  }
