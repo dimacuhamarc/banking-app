@@ -2,51 +2,60 @@
 
 .nav {
   height: 100vh;
-  width: 200px;
-  z-index: 1;
+  width: 175px;
+  z-index: 9999;
   position: fixed;
   top: 0;
   left: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  
   align-items: center;
   padding: 0 2rem;
 
   .brand {
-    align-self: center;
+    justify-self: flex-start;
+    margin: 1rem 0;
+    font-size: 0.75rem;
+    font-weight: 800;
   }
 
-  .nav-links {
+  .nav-links, .user-controls{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
+    width: calc(100% + 4rem);
 
     h2 {
       margin: 1rem 0;
       font-size: 0.75rem;
       font-weight: 800;
+      align-self: center;
     }
+    
     a {
       text-decoration: none;
       font-size: 1rem;
-      width: calc(100% + 4rem);
+      width: auto;
       padding: 0.5rem 1rem;
       border-radius: 1rem 0 0 1rem;
       transition: all 0.2s ease-in-out;
-
+      i {
+        margin-right: 0.5rem;
+      }
       &:hover {
-        transform: translateX(1rem);
-        width: calc(100% + 2rem);
         border-radius: 1rem 0 0 1rem;
         background-color: $text;
-        color: $fountain-blue;
+        color: $rock-blue !important;
+        font-weight: 600;
         border-right: $cascade 5px solid;
+
+        i {
+          color: $rock-blue;
+          margin-right: 0.5rem;
+        }
       }
-      :active:hover {
-        transform: translateX(0);
-      }      
     }
   }
 }
@@ -54,11 +63,11 @@
 .active {  
   border-radius: 1rem 0 0 1rem;
   background-color: $text;
-  color: $rock-blue;
+  color: $fountain-blue !important;
   font-weight: 600;
   border-right: $cascade 5px solid;
+
+  i {
+    color: $fountain-blue !important;
+  }
 }
-
-
-
-

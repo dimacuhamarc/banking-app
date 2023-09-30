@@ -1,0 +1,16 @@
+@use '../../../styles/variables' as *;
+
+.default {
+  * {
+    color: $text;
+  }
+  background: linear-gradient(260deg, $cascade, $blue-bayoux);
+}
+
+.cash {
+  * {
+    color: $text;
+  }
+  background: linear-gradient(260deg, $cascade, $blue-bayoux);
+  height: 100px;
+}

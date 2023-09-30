@@ -1,0 +1,49 @@
+@use '../../../styles/variables' as *;
+@use './CardStyles' as *;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 7.5rem;
+  width: 23rem;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  * {
+    transition: all 0.3s ease-in-out;
+  }
+  i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+  p {
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
+
+  &:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.4);
+    filter: brightness(1.1);
+
+    h2 {
+      color: $bizarre;
+      transform: scale(1.05);
+    }
+    p {
+      transform: scale(1.05);
+      font-weight: 700;
+      color: $bizarre;
+    }
+  }
+  
+}
