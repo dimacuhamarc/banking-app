@@ -1,9 +1,8 @@
-import DashboardNav from "../components/Dashboard/DashboardNav/DashboardNav";
+import '../App.scss';
 
 const Budget = () => {
   return (
-    <div>
-      <DashboardNav />
+    <div className='main'>
       <h1>Budget App</h1>
     </div>
   );

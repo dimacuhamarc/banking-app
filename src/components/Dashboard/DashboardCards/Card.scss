@@ -1,28 +1,44 @@
 @use '../../../styles/variables' as *;
 @use './CardStyles' as *;
 
+.cash {
+  width: 25rem;
+}
+
+.default {
+  width: 20rem;
+}
+
 .card {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  height: 7.5rem;
-  width: 23rem;
+  height: 10rem;
   border-radius: 1rem;
   padding: 1rem;
   box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 
+  .card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+  }
+
   * {
     transition: all 0.3s ease-in-out;
   }
   i {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.75rem;
+    margin-right: 0.5rem;
+    color: $text;
   }
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 800;
   }
   p {
@@ -37,13 +53,13 @@
 
     h2 {
       color: $bizarre;
-      transform: scale(1.05);
     }
     p {
-      transform: scale(1.05);
       font-weight: 700;
       color: $bizarre;
     }
+    i {
+      color: $bizarre;
+    }
   }
-  
 }

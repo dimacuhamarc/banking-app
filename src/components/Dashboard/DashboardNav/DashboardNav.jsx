@@ -1,7 +1,7 @@
 import React from 'react'
 import './DashboardNav.scss'
 import { useLocation, NavLink } from 'react-router-dom';
-
+import Logout from '../../../utils/Logout';
 const DashboardNav = () => {
 
   const location = useLocation();
@@ -35,9 +35,7 @@ const DashboardNav = () => {
             </NavLink>
           </div>
           <div className='user-controls'>
-            <NavLink to='/login'>
-              <i class="fa-solid fa-sign-out"></i>Logout
-            </NavLink>
+            <Logout/>
           </div>
         </div>
       </div>
