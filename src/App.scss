@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-   outline: red 1px solid;
+  // outline: red 1px solid;
   // -webkit-user-select: none; /* Safari */
   // -ms-user-select: none; /* IE 10 and IE 11 */
   // user-select: none; /* Standard syntax */
@@ -31,7 +31,9 @@
     justify-content: space-between;
     flex-wrap: wrap;
     width: calc(100vw - 255px);
+    height: 100%;
     margin: 1rem 0;
+    //outline: 1px solid blue !important;
   }
 
   h1 {

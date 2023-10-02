@@ -3,42 +3,73 @@
 .budget-content {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    margin-top: 30px;
+    justify-content: flex-start;
 
     .first-container {
         flex: 1;
         margin-right: 20px;
+        height: 100%;
 
         .graph {
             width: 23rem;
-            height: 325px;
+            height: 50%;
             margin-bottom: 40px;
             padding: 30px;
             border: none;
             background: $bg-gradient1 no-repeat fixed;
             border-radius: 1rem;
             box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
-            margin-bottom: 25px;
         }
 
         .calendar {
+            h1 {
+                font-size: 30px;
+                margin-bottom: 20px;
+                &:hover {
+                    color: $blue-bayoux;
+                }
+            }
+            &:hover {
+                transform: scale(1.07);
+                box-shadow: 0 0 10px 0 rgba(0,0,0,0.4);
+            }
+            .react-calendar {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                & * {
+                    margin-top: 5px;
+                }
+            }
+            transition: transform 0.3s ease-in-out;
             width: 23rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100%;
             border: none;
-            // background: $bg-gradient no-repeat fixed;
+            text-align: center;
             background: $bg-gradient2 no-repeat fixed;
-            padding: 30px;
+            padding: 20px 20px 20px 20px;
             border-radius: 1rem;
             font-size: 20px;
             color: $cod-gray;
             box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
-
-
             button {
-                border: none;
+                border: 1px solid $cod-gray;
                 background: transparent;
-                color: $cod-gray;
-                font-size: 18px;
+                padding: 5px 12px;
+                border-radius: 10px;
+                font-size: 20px;
+                cursor: pointer;
+                transition: all 0.3s ease-in-out;
+                &:hover {
+                    background: $cod-gray;
+                    color:  $white !important;
+                     * {color: $white !important;}
+                }
             }
 
             *{color: $cod-gray;}
@@ -47,7 +78,7 @@
 
     .second-container {
         flex: 3;
-        height: 65vh;
+        height: 100%;
         background: $bg-gradient2 no-repeat fixed;
         padding: 30px;
         border-radius: 1rem;

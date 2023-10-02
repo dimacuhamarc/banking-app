@@ -4,6 +4,7 @@
   * {
     color: $text;
   }
+  width: 23rem;
   background: linear-gradient(260deg, $cascade, $blue-bayoux);
 }
 
@@ -11,6 +12,21 @@
   * {
     color: $text;
   }
+  width: 23rem;
   background: linear-gradient(260deg, $cascade, $blue-bayoux);
-  height: 100px;
+}
+
+.graph {
+  * {
+    color: $cod-gray;
+  }
+  width: calc(100vw - 40rem);
+  margin-bottom: 40px;
+  padding: 30px;
+  border: none;
+  color: $cod-gray !important;
+  background: $bg-gradient1 no-repeat fixed;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  
 }

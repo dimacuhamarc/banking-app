@@ -1,13 +1,6 @@
 @use '../../../styles/variables' as *;
 @use './CardStyles' as *;
 
-.cash {
-  width: 25rem;
-}
-
-.default {
-  width: 20rem;
-}
 
 .card {
   display: flex;

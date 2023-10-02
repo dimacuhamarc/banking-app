@@ -12,12 +12,13 @@ body {
     justify-content: space-between;
     flex-wrap: wrap;
     width: calc(100vw - 255px);
+    height: 10rem;
     row-gap: 1rem;
   }
 }
 
 .dashboard  * {
-  color: $fountain-blue;
+  color: $cod-gray;
 }
 
 .dropdown-btn {

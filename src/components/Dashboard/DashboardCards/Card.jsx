@@ -4,6 +4,7 @@ import './Card.scss'
 export const CardStyles = {
   default: 'default',
   cash: 'cash',
+  graph: 'graph',
 };
 
 export const Card = ({title, data, style, icon}) => {
@@ -39,4 +40,20 @@ export const CardBalance = ({accountHolder, accountNumber, data, style, icon}) =
     </div>
   );
 };
+
+export const CardGraph = ({title, data, style, icon}) => {
+  return (
+    <div>
+      <div className={'card ' + style}>
+        <div className='card-body'>
+          <p>{title}</p>
+        </div>
+        <div className='card-header'>
+          {icon}
+          <h2>{data}</h2>
+        </div>
+      </div>
+    </div>
+  );
+}
 
