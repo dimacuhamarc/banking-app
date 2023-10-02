@@ -7,6 +7,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { useAuth } from "./utils/Auth";
 import DashboardNav from './components/Dashboard/DashboardNav/DashboardNav';
 import Transactions from './pages/Transactions';
+import ManageAccounts from './pages/ManageAccounts';
 
 function App() {
   const { Authenticated } = useAuth();
@@ -25,6 +26,8 @@ function App() {
         <Route exact path='/account' element={Authenticated ? <MyAccount /> : <Navigate to="/login" />} />
         
         <Route exact path='/transactions' element={Authenticated ? <Transactions /> : <Navigate to="/login" />} />
+
+        <Route exact path='/manage-accounts' element={Authenticated ? <ManageAccounts /> : <Navigate to="/login" />} />
 
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>

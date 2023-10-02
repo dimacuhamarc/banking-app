@@ -1,0 +1,32 @@
+[
+  {
+    "holder": "Kim Min-Jeong",
+    "email" : "admin@coinpal.ph",
+    "password": "admin1234",
+    "number": "2416233523",
+    "balance": 42415.43,
+    "type": "Savings",
+    "isAdmin": true,
+    "id": 0
+  },
+  {
+    "holder": "John Doe",
+    "email" : "john@coinpal.ph",
+    "password": "john1234",
+    "number": "2935133316",
+    "balance": 410.43,
+    "type": "Savings",
+    "isAdmin": false,
+    "id": 1
+  },
+  {
+    "holder": "Kim Jisoo",
+    "email" : "jisoo@email.com",
+    "password" : "jisoo1234",
+    "number": "2935157511",
+    "balance": 100415.43,
+    "type": "Savings",
+    "isAdmin": false,
+    "id": 2
+  }
+]
