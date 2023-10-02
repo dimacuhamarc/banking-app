@@ -1,12 +1,23 @@
-import React from "react";
-import DashboardNav from "../components/Dashboard/DashboardNav/DashboardNav";
+import React, { useState } from "react";
 import { Card, CardStyles } from "../components/Dashboard/DashboardCards/Card";
-import Expense from "../components/BudgetApp/Expenses/Expenses";
-import "../styles/Dashboard.scss";
+import DashboardNav from "../components/Dashboard/DashboardNav/DashboardNav";
+import AddExpense from "../components/BudgetApp/AddExpenses/AddExpenses";
 import Calendar from "react-calendar";
+import "../styles/Dashboard.scss";
 import "../styles/Budget.scss";
+import data from "../assets/input-expenses.json";
 
-const Budget = () => {
+function Budget() {
+  const [expenses, setExpenses] = useState(data);
+
+  const handleExpenses = (newExpense) => {
+    setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
+  };
+
+  const handleDeleteExpense = (id) => {
+    setExpenses((prevExpenses) => prevExpenses.filter((expense) => expense.id !== id));
+  };
+
   return (
     <div>
       <DashboardNav />
@@ -34,15 +45,42 @@ const Budget = () => {
 
             <div className="second-container">
               <div className="expense">
-                <Expense></Expense>
+                Expenses
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Expense Name</th>
+                      <th>Expense Cost</th>
+                      <th>Due Date</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {expenses.map((expense, index) => (
+                      <tr key={expense.id}>
+                        <td>{expense.expense_name}</td>
+                        <td>PHP {expense.expense_cost}</td>
+                        <td>{expense.due_date}</td>
+                        <td>
+                          <button>
+                            <i class="fa-solid fa-pen-to-square" style={{ color: "#ffff" }}></i>
+                          </button>
+                          <button onClick={() => handleDeleteExpense(expense.id)}>
+                            <i class="fa-solid fa-delete-left" style={{ color: "#ffff" }}></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <AddExpense handleOnChange={handleExpenses} newId={expenses.length + 1} />
               </div>
             </div>
-            
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default Budget;
