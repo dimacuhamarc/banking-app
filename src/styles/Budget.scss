@@ -1,89 +1,146 @@
-@use '../styles/variables' as *;
+@use "../styles/variables" as *;
 
 .budget-content {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 
-    .first-container {
-        flex: 1;
-        margin-right: 20px;
+  .first-container {
+    flex: 1;
+    margin-right: 20px;
+    height: 100%;
+
+    .slide-controls {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      // button {
+      //   overflow-wrap: unset;
+      //   position: absolute;
+      //   top: 50%; 
+      //   transform: translateY(-50%);
+      //   background: rgba(255, 255, 255, 0.8);
+      //   border: none;
+      //   border-radius: 50%;
+      //   padding: 10px;
+      //   cursor: pointer;
+      //   transition: background 0.3s ease-in-out;
+      //   z-index: 2;
+      //   &:hover {
+      //     background: rgba(255, 255, 255, 1)
+      //   }
+      //   &.prev-button {
+      //     left: 10px;
+      //   }
+      //   &.next-button{
+      //     right: 10px;
+      //   }
+      // }
+
+      .graph {
+        width: 23rem;
         height: 100%;
-
-        .graph {
-            width: 23rem;
-            height: 50%;
-            margin-bottom: 40px;
-            padding: 30px;
-            border: none;
-            background: $bg-gradient1 no-repeat fixed;
-            border-radius: 1rem;
-            box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
-        }
-
-        .calendar {
-            h1 {
-                font-size: 30px;
-                margin-bottom: 20px;
-                &:hover {
-                    color: $blue-bayoux;
-                }
-            }
-            &:hover {
-                transform: scale(1.07);
-                box-shadow: 0 0 10px 0 rgba(0,0,0,0.4);
-            }
-            .react-calendar {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                & * {
-                    margin-top: 5px;
-                }
-            }
-            transition: transform 0.3s ease-in-out;
-            width: 23rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            height: 100%;
-            border: none;
-            text-align: center;
-            background: $bg-gradient2 no-repeat fixed;
-            padding: 20px 20px 20px 20px;
-            border-radius: 1rem;
-            font-size: 20px;
-            color: $cod-gray;
-            box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
-            button {
-                border: 1px solid $cod-gray;
-                background: transparent;
-                padding: 5px 12px;
-                border-radius: 10px;
-                font-size: 20px;
-                cursor: pointer;
-                transition: all 0.3s ease-in-out;
-                &:hover {
-                    background: $cod-gray;
-                    color:  $white !important;
-                     * {color: $white !important;}
-                }
-            }
-
-            *{color: $cod-gray;}
-        }
-    }
-
-    .second-container {
-        flex: 3;
-        height: 100%;
-        background: $bg-gradient2 no-repeat fixed;
+        margin-bottom: 40px;
         padding: 30px;
+        border: none;
+        background: $bg-gradient2 no-repeat fixed;
         border-radius: 1rem;
-        color: $white !important;
-        overflow: auto;
-        box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      .calendar {
+        h1 {
+          font-size: 30px;
+          margin-bottom: 20px;
+          &:hover {
+            color: $blue-bayoux;
+          }
+        }
+        &:hover {
+          transform: scale(1.07);
+          box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+        }
+        .react-calendar {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          & * {
+            margin-top: 5px;
+          }
+        }
+        transition: transform 0.3s ease-in-out;
+        width: 23rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+        border: none;
+        text-align: center;
+        background: $bg-gradient2 no-repeat fixed;
+        padding: 20px 20px 20px 20px;
+        border-radius: 1rem;
+        font-size: 20px;
+        color: $cod-gray;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+        button {
+          border: 1px solid $cod-gray;
+          background: transparent;
+          padding: 5px 12px;
+          border-radius: 10px;
+          font-size: 20px;
+          cursor: pointer;
+          transition: all 0.3s ease-in-out;
+          &:hover {
+            background: $cod-gray;
+            color: $white !important;
+            * {
+              color: $white !important;
+            }
+          }
+        }
+
+        * {
+          color: $cod-gray;
+        }
+      }
     }
+  }
+
+  .second-container {
+    flex: 3 !important;
+    height: 100%;
+    width: 100%;
+    background: $bg-gradient2 no-repeat fixed;
+    padding: 30px;
+    border-radius: 1rem;
+    color: $white !important;
+    overflow: auto;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+
+    th {
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      border-bottom: 3px solid $fountain-blue;
+    }
+
+    td {
+      border-left: none;
+      border-right: none;
+      border-bottom: 5px solid rgba(128, 128, 128, 0.086);
+      transition: background-color 0.3s;
+    }
+
+    .data-row:hover {
+      background-color: $orange-light;
+      transform: scale(1.03);
+    }
+
+    tr:nth-child(odd) td {
+      background-color: $bizarre-light;
+    }
+  }
 }
