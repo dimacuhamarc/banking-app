@@ -17,21 +17,21 @@ const DashboardNav = () => {
             <h1>CoinPal</h1>
           </div>
           <div className='nav-links'>
-            <NavLink to='/dashboard' activeClassName='active'>
-              <i class="fa-solid fa-table-columns"></i>Dashboard
+            <NavLink to='/dashboard'>
+              <i className="fa-solid fa-table-columns"></i>Dashboard
             </NavLink>
             <NavLink to='/budget'>
-            <i class="fa-solid fa-receipt"></i>My Budget
+            <i className="fa-solid fa-receipt"></i>My Budget
             </NavLink>
             <NavLink to='/account'>
-              <i class="fa-solid fa-user"></i>My Account
+              <i className="fa-solid fa-user"></i>My Account
             </NavLink>
             <NavLink to='/transactions'>
-              <i class="fa-solid fa-right-left"></i>Transactions
+              <i className="fa-solid fa-right-left"></i>Transactions
             </NavLink>
             <h2>Admin Controls</h2>
             <NavLink to='/manage-accounts'>
-              <i class="fa-solid fa-users"></i>Accounts
+              <i className="fa-solid fa-users"></i>Accounts
             </NavLink>
           </div>
           <div className='user-controls'>

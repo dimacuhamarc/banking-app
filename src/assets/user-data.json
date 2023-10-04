@@ -1,13 +1,31 @@
 [
   {
-    "holder": "Kim Min-Jeong",
+    "holder": "Admin Account",
     "email" : "admin@coinpal.ph",
     "password": "admin1234",
     "number": "2416233523",
-    "balance": 42415.43,
-    "type": "Savings",
+    "balance": 42464.43,
+    "type": "Admin",
     "isAdmin": true,
-    "id": 0
+    "id": 0,
+    "transactions": [{
+      "id": 0,
+      "date": "2020-10-10",
+      "amount": 1000,
+      "type": "Deposit",
+      "status": "Completed",
+      "from": "Wallet",
+      "to": "Kim Min-Jeong"
+    },
+    {
+      "id": 1,
+      "date": "2020-10-10",
+      "amount": 1000,
+      "type": "Transfer",
+      "status": "Completed",
+      "from": "Kim Min-Jeong",
+      "to": "Kim Jisoo"
+    }]
   },
   {
     "holder": "John Doe",
@@ -28,5 +46,15 @@
     "type": "Savings",
     "isAdmin": false,
     "id": 2
+  },
+  {
+    "holder": "Tony Stark",
+    "email" : "tony@email.com",
+    "password" : "tony1234",
+    "number": "2963948494",
+    "balance": 15323566,
+    "type": "Savings",
+    "isAdmin": false,
+    "id": 3
   }
 ]

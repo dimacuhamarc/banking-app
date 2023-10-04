@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-import { Card, CardStyles } from "../components/Dashboard/DashboardCards/Card";
-import DashboardNav from "../components/Dashboard/DashboardNav/DashboardNav";
 import AddExpense from "../components/BudgetApp/AddExpenses/AddExpenses";
-
 import UserBalance from "../components/Dashboard/UserBalance";
-
 import Calendar from "react-calendar";
 import "../styles/Dashboard.scss";
 import "../styles/Budget.scss";

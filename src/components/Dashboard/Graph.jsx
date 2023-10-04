@@ -5,7 +5,7 @@ export default function Graph() {
     <CardGraph 
       data={`graph should be here`}
       style={CardStyles.graph}
-      icon={<i class="fa-solid fa-graph"></i>}
+      icon={<i className="fa-solid fa-graph"></i>}
     />
   );
 }

@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div className="App">
-      <DashboardNav />
+      {Authenticated && <DashboardNav />}
       <Routes>
         <Route exact path='/' element={Authenticated ? <Dashboard /> : <Navigate to="/login" />} />
         <Route path="/login" element={<Login/>} />
