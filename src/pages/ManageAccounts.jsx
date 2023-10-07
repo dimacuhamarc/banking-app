@@ -1,107 +1,52 @@
+import React, { useState, useEffect } from "react";
 import AccountList from "../components/Accounts/AccountList";
 import EnrollAccount from "../components/Accounts/AccountActions/EnrollAccount";
-import EditAccount from "../components/Accounts/AccountActions/EditAccount";
 import "../styles/ManageAccounts.scss";
-import data from "../assets/user-data.json";
-import { useState } from "react";
 
 const ManageAccounts = () => {
-  const [accounts, setAccounts] = useState(data);
-  const [editingAccount, setEditingAccount] = useState(null);
-  const [showEditAccModal, setShowEditAccModal] = useState(false);
-  const [deleteAccount, setDeleteAccount] = useState(null);
-  const [showDelAccModal, setShowDelAccModal] = useState(false);
+  const [accounts, setAccounts] = useState([]);
 
-  const addUserAccount = (newAccount) => {
+  useEffect(() => {
+    const storedAccounts = localStorage.getItem("userData");
+    if (storedAccounts) {
+      setAccounts(JSON.parse(storedAccounts));
+    }
+  }, []);
+
+  const handleAddAccount = (newAccount) => {
+    const maxId = Math.max(...accounts.map((account) => account.id), 0);
+    const newId = maxId + 1;
+    newAccount.id = newId;
     const updatedAccounts = [...accounts, newAccount];
     setAccounts(updatedAccounts);
-    localStorage.setItem("nonAdminAccount", JSON.stringify(updatedAccounts));
+    localStorage.setItem("userData", JSON.stringify(updatedAccounts));
   };
 
-  const handleAccounts = (newAccount) => {
-    if (editingAccount) {
-      setAccounts((prevAccount) =>
-        prevAccount.map((account) =>
-          account.id === editingAccount.id ? newAccount : account
-        )
-      );
-      const updatedAccounts = accounts.map((account) =>
-        account.id === editingAccount.id ? newAccount : account
-      );
-      localStorage.setItem("nonAdminAccount", JSON.stringify(updatedAccounts));
+  useEffect(() => {
+    const totalSavingsBalance = accounts
+      .filter((account) => account.type === "Savings")
+      .reduce((total, account) => total + account.balance, 0);
+    const adminAccountIndex = accounts.findIndex(
+      (account) => account.type === "Admin"
+    );
+    if (adminAccountIndex !== -1) {
+      const updatedAccounts = [...accounts];
+      updatedAccounts[adminAccountIndex].balance = totalSavingsBalance;
 
-      setEditingAccount(null);
-      setShowEditAccModal(false);
-    } else {
-      setAccounts((prevAccount) => {
-        const updatedAccounts = [...prevAccount, newAccount];
-        localStorage.setItem(
-          "nonAdminAccount",
-          JSON.stringify(updatedAccounts)
-        );
-        return updatedAccounts;
-      });
+      setAccounts(updatedAccounts);
+      localStorage.setItem("userData", JSON.stringify(updatedAccounts));
     }
-  };
-
-  const handleEditAccount = (account) => {
-    setEditingAccount(account);
-    setShowEditAccModal(true);
-  };
-
-  const handleDeleteAccount = (account) => {
-    setDeleteAccount(account);
-    setShowDelAccModal(true);
-  };
-
-  const handleConfirmDelAccount = () => {
-    if (deletingAccount) {
-      const deleteIndex = accounts.findIndex(
-        (account) => account.id === deletingAccount.id
-      );
-
-      if (deleteIndex !== -1) {
-        accounts.splice(deleteAccount, 1);
-
-        const updatedAccounts = accounts.map((account, index) => ({
-          ...account,
-          id: index,
-        }));
-        setAccounts(updatedAccounts);
-        localStorage.setItem(
-          "nonAdminAccount",
-          JSON.stringify(updatedAccounts)
-        );
-      }
-    }
-    setDeleteAccount(null);
-    setShowDelAccModal(false);
-  };
+  }, [accounts]);
 
   return (
     <div className="main">
       <div className="titlebar">
         <h1>Manage Accounts</h1>
-        <EnrollAccount onEnroll={addUserAccount} />
+        <EnrollAccount onEnroll={handleAddAccount} />
       </div>
       <div className="accounts">
-        <AccountList onEdit={handleEditAccount} onDelete={handleDeleteAccount}/>
+        <AccountList accounts={accounts} />
       </div>
-
-      {showEditAccModal && (
-        <EditAccount
-          account={editingAccount}
-          onSave={(editedAccount) => {
-            handleAccounts(editedAccount);
-            setEditingAccount(null);
-            setShowEditAccModal(false);
-          }}
-          onCancel={() => {
-            setEditingAccount(null);
-            setShowEditAccModal(false);
-          }}
-        />
-      )}
     </div>
   );
 };

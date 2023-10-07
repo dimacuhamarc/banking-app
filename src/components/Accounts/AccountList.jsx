@@ -15,11 +15,11 @@ export default function AccountList() {
 
   const handleUsers = (updatedUsers) => {
     setUsers(updatedUsers);
-    localStorage.setItem("nonAdminAccount", JSON.stringify(updatedUsers));
+    localStorage.setItem("userData", JSON.stringify(updatedUsers));
   }
 
   useEffect(() => {
-    const localStorageData = localStorage.getItem("nonAdminAccount");
+    const localStorageData = localStorage.getItem("userData");
     
     if (localStorageData) {
       const parsedData = JSON.parse(localStorageData);

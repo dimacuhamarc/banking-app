@@ -6,7 +6,7 @@ export default function AccountCard(props) {
   const [accountNumber, setAccountNumber] = useState("");
   const [type, setType] = useState("");
   const [admin, setAdmin] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
+  // const [showEditModal, setShowEditModal] = useState(false);
 
   const handleUserDetails = () => {
     setBalance(props.balance);
@@ -28,12 +28,11 @@ export default function AccountCard(props) {
     if (!admin) {
       return (
         <div className="controls">
-          <button onClick={() => setShowEditModal(true)}>
+          <button onClick={() => onEdit(props)}>
             <i className="fa-solid fa-pen-to-square"></i>
           </button>
 
-          <button>
-            DELETE
+          <button onClick={() => onDelete(props)}>
             <i className="fa-solid fa-delete-left"></i>
           </button>
         </div>

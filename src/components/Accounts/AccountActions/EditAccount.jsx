@@ -4,9 +4,13 @@ import "./AccountActions.scss";
 function EditAccount({ account, onSave, onCancel }) {
   const [editedAccount, setEditedAccount] = useState({ ...account });
 
-//   const handleInputChange = (event) => {
-        // [wip]
-//   };
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setEditedAccount({
+      ...editedAccount,
+      [name]: value,
+    });
+  };
 
   const handleSave = () => {
     onSave(editedAccount);
