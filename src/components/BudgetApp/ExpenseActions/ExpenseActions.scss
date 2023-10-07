@@ -27,6 +27,7 @@
       max-width: 400px;
       width: 100%;
       text-align: center;
+      color: $cod-gray !important;
     }
 
     .modal-content input {
@@ -43,6 +44,11 @@
       width: 300px;
       font-size: 16px;
       padding: 5px 10px 5px 10px;
+      color: black;
+      border-radius: 0.4rem;
+      margin-bottom: 10px;
+      font-family: inherit;
+      text-align: center;
     }
 
     .modal-content button {
@@ -60,6 +66,15 @@
       margin-right: 0;
       background-color: $bizarre;
     }
+
+    label {
+      color: $cod-gray !important;
+      font-size: 18px;
+    }
+
+    h3, p {
+      color: $cod-gray !important;
+    }
   }
   
   table {
@@ -73,12 +88,11 @@
     border: 1px solid $fountain-blue;
     padding: 10px;
     text-align: left;
-    border-radius: 1rem;
     color: $cod-gray !important;
   }
   
   /* add expense button */
-  .add-exp-button, .save-cancel-button  {
+  .add-exp-button, .save-cancel-button, .confirm-cancel-button  {
     background-color: $breaker-bay;
     color: $text !important;
     border: none;
@@ -86,13 +100,14 @@
     padding: 10px 20px;
     cursor: pointer;
     margin: 20px 0 10px 0;
+    font-family: inherit;
 
     &:hover {
         background-color: $ebony-clay;
     }
   }
 
-  .save-cancel-button {
+  .save-cancel-button, .confirm-cancel-button {
     width: 82px;
     margin: 20px 5px 0 5px;
   }

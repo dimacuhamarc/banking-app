@@ -1,0 +1,124 @@
+@use '../../../styles/variables' as *;
+
+.control-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+
+  * {
+    color: $cod-gray;
+  }
+
+  #btn-submit {
+    height: 5rem;
+    &:hover {
+      background-color: $blue-bayoux;
+      color: white;
+    }
+  }
+
+  button {
+    background: #ffffff28;
+    border: none;
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-radius: 20px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    padding: 1rem 1.25rem;
+    &:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      background-color: $blue-bayoux;
+      color: white;
+    }
+  }
+
+  .control-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .control-modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    height: 50vh;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+  }
+  
+  .control-modal-close {
+    button {font-weight: 100; font-size: 14px;}
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+}
+
+.control-modal form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  height: 100%;
+  margin: 0 auto;
+  width: 100%;
+  transition: all 0.2s ease-in-out;
+
+  input[type="number"] {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border-radius: 20px;
+    border: none;
+    appearance: textfield;
+    background-color: transparent;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+
+    &:focus {
+      outline: 2px solid $blue-bayoux;
+    }
+    &::-webkit-inner-spin-button {
+      display: none;
+    }
+  }
+  
+  label {
+    font-size: 1.25rem;
+    font-weight: 400;
+    padding: 0 1rem;
+  }
+  .account-number * {
+    display: block;
+    font-size: 0.75rem !important;
+    color: gray;
+  }
+  .account-number span {
+    display: inline-block;
+    text-decoration: underline;
+    background-color: $blue-bayoux;
+    color: white;
+    padding: 0 0.25rem;
+  }
+}
+

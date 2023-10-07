@@ -9,8 +9,12 @@ $ebony-clay: #2f3444;
 $matrix: #b4645c;
 $orange: #d1a66d;
 $dark-matrix: #bd4237;
-$green: #a3c9a8;
+$green: rgb(119, 190, 129);
+$green-hover: rgb(154, 231, 164);
 $white: #f6f6f6;
+$text: #f6f6f6;
+$bizarre-light: #ecddd57d;
+$orange-light: #d1a66d69;
 
 
 $bg-gradient: linear-gradient(to bottom, $blue-bayoux, $cascade);
@@ -18,4 +22,10 @@ $bg-gradient1: linear-gradient(to bottom, $white, $bizarre);
 $bg-gradient2: linear-gradient(to left, $white, $cascade);
 $bg-gradient3: linear-gradient(162deg, $blue-bayoux 65%, $orange 98%);
 $gradient: $blue-bayoux, $cascade;
-$text: #f6f6f6;
+
+$card-control: linear-gradient(
+  217deg,
+  $blue-bayoux,
+  $cascade 70.71%
+);
+$accounts: linear-gradient(to left, $white, $blue-bayoux);

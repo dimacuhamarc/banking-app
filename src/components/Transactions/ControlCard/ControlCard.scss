@@ -1,0 +1,50 @@
+@use '../../../styles/variables' as *;
+
+.control-card {
+  align-self: center;
+  height: 100%;
+  flex-grow: 1;
+  flex-direction: row;
+  margin-left: 1rem;
+  background: $card-control;
+  justify-content: center;
+  align-items: flex-start;
+  transform: none !important;
+  & > div {
+    flex-grow: 1;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: $text;
+    
+    font-weight: 700;
+    
+    &:hover {
+      filter: brightness(1.6);
+      color: $bizarre;
+    }
+  }
+
+  button {
+    background: #ffffff28;
+    border: none;
+    color: $text;
+    height: 100%;
+    width: 95%;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-radius: 20px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    padding: 1rem 1.5rem;
+    &:hover {
+      color: $bizarre;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      background: #cacaca57;
+    }
+  }
+}

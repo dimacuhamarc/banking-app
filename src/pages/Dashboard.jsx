@@ -7,7 +7,9 @@ import UserBalance from '../components/Dashboard/UserBalance';
 const Dashboard = () => {
   return (
     <div className="main">
-      <h1>Dashboard</h1>
+      <div className="titlebar">
+        <h1>Dashboard</h1>
+      </div>
       <div>
         <div className='dashboard-cards'>
           <div>

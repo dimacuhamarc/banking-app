@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './AddExpenses.scss';
+import './ExpenseActions.scss';
 
 function AddExpense(props) {
   const [expenseName, setExpenseName] = useState('');
@@ -12,7 +12,7 @@ function AddExpense(props) {
 
     const newExpense = {
       expense_name: expenseName,
-      expense_cost: expenseCost,
+      expense_cost: Number(expenseCost),
       due_date: dueDate,
       id: props.newId,
     };
@@ -42,26 +42,26 @@ function AddExpense(props) {
           <div className="modal-expense">
             <h3>Add Expense</h3><br />
             <form onSubmit={addNewExpenseHandler}>
-              <label>Expense Name:</label>
+              <label>Expense Name</label>
               <input
                 required
                 name="expense-input"
                 id="expenseNameModal"
                 value={expenseName}
-                placeholder="Expense Name"
+                placeholder="Enter Text Here"
                 onChange={(event) => setExpenseName(event.target.value)}
               /> <br />
-              <label>Cost: </label> <br />
+              <label>Cost</label> <br />
               <input
                 required
                 name="expense-input"
                 id="expenseCostModal"
                 type="number"
                 value={expenseCost}
-                placeholder="Expense Cost"
+                placeholder="Enter Cost Here"
                 onChange={(event) => setExpenseCost(event.target.value)}
               /> <br />
-              <label>Due Date: </label><br />
+              <label>Due Date</label><br />
               <input
                 required
                 id="dueDateModal"
