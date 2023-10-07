@@ -1,35 +1,37 @@
 [
   {
     "holder": "Admin Account",
-    "email" : "admin@coinpal.ph",
+    "email": "admin@coinpal.ph",
     "password": "admin1234",
     "number": "2416233523",
     "balance": 839314.61,
     "type": "Admin",
     "isAdmin": true,
     "id": 0,
-    "transactions": [{
-      "id": 0,
-      "date": "2020-10-10",
-      "amount": 1000,
-      "type": "Deposit",
-      "status": "Completed",
-      "from": "Wallet",
-      "to": "Kim Min-Jeong"
-    },
-    {
-      "id": 1,
-      "date": "2020-10-10",
-      "amount": 1000,
-      "type": "Transfer",
-      "status": "Completed",
-      "from": "Kim Min-Jeong",
-      "to": "Kim Jisoo"
-    }]
+    "transactions": [
+      {
+        "id": 0,
+        "date": "2020-10-10",
+        "amount": 1000,
+        "type": "Deposit",
+        "status": "Completed",
+        "from": "Wallet",
+        "to": "Kim Min-Jeong"
+      },
+      {
+        "id": 1,
+        "date": "2020-10-10",
+        "amount": 1000,
+        "type": "Transfer",
+        "status": "Completed",
+        "from": "Kim Min-Jeong",
+        "to": "Kim Jisoo"
+      }
+    ]
   },
   {
     "holder": "John Doe",
-    "email" : "john@coinpal.ph",
+    "email": "john@coinpal.ph",
     "password": "john1234",
     "number": "2935133316",
     "balance": 410.43,
@@ -40,8 +42,8 @@
   },
   {
     "holder": "Kim Jisoo",
-    "email" : "jisoo@email.com",
-    "password" : "jisoo1234",
+    "email": "jisoo@email.com",
+    "password": "jisoo1234",
     "number": "2935157511",
     "balance": 100415.43,
     "type": "Savings",
@@ -51,8 +53,8 @@
   },
   {
     "holder": "Tony Stark",
-    "email" : "tony@email.com",
-    "password" : "tony1234",
+    "email": "tony@email.com",
+    "password": "tony1234",
     "number": "2963948494",
     "balance": 15323566,
     "type": "Savings",

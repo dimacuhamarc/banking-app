@@ -12,7 +12,7 @@ function AddExpense(props) {
 
     const newExpense = {
       expense_name: expenseName,
-      expense_cost: expenseCost,
+      expense_cost: Number(expenseCost),
       due_date: dueDate,
       id: props.newId,
     };

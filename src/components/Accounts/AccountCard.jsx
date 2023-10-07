@@ -6,6 +6,7 @@ export default function AccountCard(props) {
   const [accountNumber, setAccountNumber] = useState("");
   const [type, setType] = useState("");
   const [admin, setAdmin] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const handleUserDetails = () => {
     setBalance(props.balance);
@@ -15,24 +16,30 @@ export default function AccountCard(props) {
     setAdmin(props.isAdmin);
   };
 
+  // useEffect(() => {
+  //   handleUserDetails();
+  // });
+
   useEffect(() => {
     handleUserDetails();
-  });
+  }, [props]);
 
   const handleAdmin = () => {
     if (!admin) {
       return (
         <div className="controls">
-          <button>
+          <button onClick={() => setShowEditModal(true)}>
             <i className="fa-solid fa-pen-to-square"></i>
           </button>
+
           <button>
+            DELETE
             <i className="fa-solid fa-delete-left"></i>
           </button>
         </div>
       );
     }
-  }
+  };
 
   const formattedBalance = new Intl.NumberFormat("en-PH", {
     style: "currency",

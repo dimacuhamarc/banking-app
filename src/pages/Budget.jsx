@@ -43,7 +43,11 @@ function Budget() {
     } else {
       setExpenses((prevExpenses) => {
         const updatedExpenses = [...prevExpenses, newExpense];
+<<<<<<< HEAD
         localStorage.setItem("expenses", JSON.stringify(expenses)); 
+=======
+        localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+>>>>>>> c5874f4fa2b36ba85723fb6a65aa84fe7c840903
         return updatedExpenses;
       });
     }
@@ -68,6 +72,7 @@ function Budget() {
 
   const handleDeleteConfirm = () => {
     if (deletingExpense) {
+<<<<<<< HEAD
       setExpenses((prevExpenses) =>
         prevExpenses.filter((expense) => expense.id !== deletingExpense.id)
       );
@@ -76,6 +81,17 @@ function Budget() {
         id: index + 1,
       }));
       localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+=======
+      const deletedIndex = expenses.findIndex((expense) => expense.id === deletingExpense.id);
+  
+      if (deletedIndex !== -1) {
+        expenses.splice(deletedIndex, 1);
+  
+        const updatedExpenses = expenses.map((expense, index) => ({...expense, id: index,}));
+        setExpenses(updatedExpenses);
+        localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+      }
+>>>>>>> c5874f4fa2b36ba85723fb6a65aa84fe7c840903
     }
     setDeletingExpense(null);
     TotalExpenses();
