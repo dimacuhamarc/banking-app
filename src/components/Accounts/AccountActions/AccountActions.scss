@@ -1,0 +1,124 @@
+@use "../../../styles/variables" as *;
+
+.enroll-account {
+  .modal-enrollment-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+
+    .modal-enrollment {
+      background-color: $white;
+      padding: 50px;
+      border-radius: 1rem;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      max-width: 650px;
+      width: 100%;
+      text-align: center;
+      color: $cod-gray !important;
+
+      fieldset {
+        border-radius: 1rem;
+        legend {
+          color: $ebony-clay !important;
+          font-weight: 700;
+          font-size: 18px;
+        }
+      }
+
+      input {
+        width: 100%;
+        padding: 30px;
+        margin-bottom: 10px;
+        border: 1px solid $bizarre;
+        // border-radius: 1rem;
+        margin: 10px;
+        font-size: 30px;
+      }
+
+      input[name="account-name-input"],
+      input[name="email-input"],
+      input[name="password-input"],
+      input[name="initial-deposit-input"],
+      input[name="gen-account-num"],
+      select {
+        width: 500px;
+        font-size: 16px;
+        padding: 5px 10px 5px 10px;
+        color: black;
+        // border-radius: 0.4rem;
+        margin-bottom: 10px;
+        font-family: inherit;
+        text-align: center;
+        outline: none;
+        border-left: none;
+        border-top: none;
+        border-right: none;
+        background-color: transparent;
+      }
+
+      option {
+        color: $ebony-clay;
+      }
+
+      .enroll-btn {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+      }
+
+      button {
+        width: 82px;
+        padding: 10px 20px;
+        margin: 10px 10px 10px 10px;
+        background-color: $breaker-bay;
+        color: $white;
+        border: none;
+        border-radius: 1rem;
+        cursor: pointer;
+        font-family: inherit;
+        &:hover {
+          background-color: $ebony-clay;
+        }
+
+        // &:last-child {
+        //   margin-right: 0;
+        //   background-color: $bizarre;
+        // }
+      }
+
+      label {
+        color: $cod-gray !important;
+        font-size: 18px;
+      }
+
+      h3,
+      p {
+        color: $cod-gray !important;
+      }
+
+      .gen-account-field {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        button {
+          background-color: $rock-blue;
+          width: 300px;
+          &:hover {
+            background-color: $fountain-blue;
+          }
+        }
+      }
+    }
+  }
+}

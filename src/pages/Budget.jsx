@@ -40,8 +40,11 @@ function Budget() {
       setEditingExpense(null);
       setShowEditModal(false);
     } else {
-      setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
-      localStorage.setItem("expenses", JSON.stringify(expenses)); //try
+      setExpenses((prevExpenses) => {
+        const updatedExpenses = [...prevExpenses, newExpense];
+        localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+        return updatedExpenses;
+      });
     }
   };
 
@@ -57,13 +60,15 @@ function Budget() {
 
   const handleDeleteConfirm = () => {
     if (deletingExpense) {
-      setExpenses((prevExpenses) =>
-        prevExpenses.filter((expense) => expense.id !== deletingExpense.id)
-      );
-      const updatedExpenses = expenses.filter(
-        (expense) => expense.id !== deletingExpense.id
-      );
-      localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+      const deletedIndex = expenses.findIndex((expense) => expense.id === deletingExpense.id);
+  
+      if (deletedIndex !== -1) {
+        expenses.splice(deletedIndex, 1);
+  
+        const updatedExpenses = expenses.map((expense, index) => ({...expense, id: index,}));
+        setExpenses(updatedExpenses);
+        localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+      }
     }
     setDeletingExpense(null);
     setShowDeleteModal(false);
@@ -163,7 +168,7 @@ function Budget() {
               </table>
               <AddExpense
                 handleOnChange={handleExpenses}
-                newId={expenses.length + 1}
+                newId={expenses.length}
               />
               {showEditModal && (
                 <EditExpense
