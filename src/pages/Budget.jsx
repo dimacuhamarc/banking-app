@@ -5,7 +5,6 @@ import DeleteExpense from "../components/BudgetApp/ExpenseActions/DeleteExpense"
 import UserBalance from "../components/Dashboard/UserBalance";
 import { Card, CardStyles } from "../components/Dashboard/DashboardCards/Card";
 import Calendar from "react-calendar";
-import "../styles/Dashboard.scss";
 import "../styles/Budget.scss";
 import data from "../assets/input-expenses.json";
 
@@ -23,6 +22,7 @@ function Budget() {
     if (storedExpenses) {
       setExpenses(JSON.parse(storedExpenses));
     }
+    
   }, []);
 
   const handleExpenses = (newExpense) => {
@@ -39,11 +39,22 @@ function Budget() {
 
       setEditingExpense(null);
       setShowEditModal(false);
+      TotalExpenses();
     } else {
-      setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
-      localStorage.setItem("expenses", JSON.stringify(expenses)); //try
+      setExpenses((prevExpenses) => {
+        const updatedExpenses = [...prevExpenses, newExpense];
+        localStorage.setItem("expenses", JSON.stringify(expenses)); 
+        return updatedExpenses;
+      });
     }
   };
+
+  const TotalExpenses = () =>
+  expenses.reduce((total, expense) => total + expense.expense_cost, 0);
+
+  useEffect(() => {
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+  });
 
   const handleEditExpense = (expense) => {
     setEditingExpense(expense);
@@ -60,12 +71,14 @@ function Budget() {
       setExpenses((prevExpenses) =>
         prevExpenses.filter((expense) => expense.id !== deletingExpense.id)
       );
-      const updatedExpenses = expenses.filter(
-        (expense) => expense.id !== deletingExpense.id
-      );
+      const updatedExpenses = expenses.map((expense, index) => ({
+        ...expense,
+        id: index + 1,
+      }));
       localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
     }
     setDeletingExpense(null);
+    TotalExpenses();
     setShowDeleteModal(false);
   };
 
@@ -76,38 +89,40 @@ function Budget() {
 
   return (
     <div className="main">
-      <h1>Budget Tracker</h1>
-      <div className="main-budget-container">
+      <div className="titlebar">
+        <h1>Budget Tracker</h1>
+      </div>
+      <div className="budget-container">
         <div className="dashboard-cards">
           <UserBalance />
-
           <Card
-            data={"PHP 40,000.43"}
+            data={TotalExpenses}
             title={"Remaining Balance"}
             style={CardStyles.default}
           />
           <Card data={"Yow"} title={"Quotes"} style={CardStyles.default} />
         </div>
-
         <div className="budget-content">
           <div className="first-container">
             <div className="slide-controls">
-              <button
-                onClick={() => setCurrentSlide("calendar")}
-                className={`prev-button ${
-                  currentSlide === "calendar" ? "active" : ""
-                }`}
-              >
-                <i class="fa-solid fa-chevron-left"></i>
-              </button>
-              <button
-                onClick={() => setCurrentSlide("graph")}
-                className={`next-button ${
-                  currentSlide === "graph" ? "active" : ""
-                }`}
-              >
-                <i class="fa-solid fa-chevron-right"></i>
-              </button>
+              <div className="buttons">
+                <button
+                  onClick={() => setCurrentSlide("calendar")}
+                  className={`prev-button ${
+                    currentSlide === "calendar" ? "active" : ""
+                  }`}
+                >
+                  <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button
+                  onClick={() => setCurrentSlide("graph")}
+                  className={`next-button ${
+                    currentSlide === "graph" ? "active" : ""
+                  }`}
+                >
+                  <i class="fa-solid fa-chevron-right"></i>
+                </button>
+              </div>
 
               {currentSlide === "calendar" ? (
                 <div className="calendar">
@@ -118,7 +133,6 @@ function Budget() {
               )}
             </div>
           </div>
-
           <div className="second-container">
             <div className="expense">
               <h2>Expenses</h2>
@@ -163,7 +177,7 @@ function Budget() {
               </table>
               <AddExpense
                 handleOnChange={handleExpenses}
-                newId={expenses.length + 1}
+                newId={expenses.length}
               />
               {showEditModal && (
                 <EditExpense

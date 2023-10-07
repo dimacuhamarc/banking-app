@@ -4,7 +4,7 @@
     "email" : "admin@coinpal.ph",
     "password": "admin1234",
     "number": "2416233523",
-    "balance": 42464.43,
+    "balance": 839314.61,
     "type": "Admin",
     "isAdmin": true,
     "id": 0,
@@ -35,7 +35,8 @@
     "balance": 410.43,
     "type": "Savings",
     "isAdmin": false,
-    "id": 1
+    "id": 1,
+    "transactions": [{}]
   },
   {
     "holder": "Kim Jisoo",
@@ -45,7 +46,8 @@
     "balance": 100415.43,
     "type": "Savings",
     "isAdmin": false,
-    "id": 2
+    "id": 2,
+    "transactions": [{}]
   },
   {
     "holder": "Tony Stark",
@@ -55,6 +57,7 @@
     "balance": 15323566,
     "type": "Savings",
     "isAdmin": false,
-    "id": 3
+    "id": 3,
+    "transactions": [{}]
   }
 ]

@@ -8,9 +8,18 @@ import { useAuth } from "./utils/Auth";
 import DashboardNav from './components/Dashboard/DashboardNav/DashboardNav';
 import Transactions from './pages/Transactions';
 import ManageAccounts from './pages/ManageAccounts';
+import { useEffect } from 'react';
+import userData from '../src/assets/user-data.json';
 
 function App() {
   const { Authenticated } = useAuth();
+
+  useEffect(() => {
+    if (localStorage.getItem('userData') === null) {
+      localStorage.setItem('userData', JSON.stringify(userData));
+    }
+  
+  });
 
   return (
     <div className="App">
@@ -36,9 +45,3 @@ function App() {
 }
 
 export default App;
-
-        /* <Route path="/login" element={<Login/>} />
-        <Route path="/dashboard" element={<Dashboard/>} />
-        <Route path="/budget" lement={<Budget/>} />
-        <Route path="/account" elementß={<MyAccount/>} />
-        <Route path="/transactions" element={<h1>hi</h1>} /> */

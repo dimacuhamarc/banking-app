@@ -1,20 +1,49 @@
 @use "../styles/variables" as *;
 
+
+.budget-container {
+  height: 100%;
+}
+
 .budget-content {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
 
   .first-container {
-    flex: 1;
-    margin-right: 20px;
     height: 100%;
 
     .slide-controls {
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
       height: 100%;
-      position: relative;
+      
+      .buttons {
+        position: absolute;
+        top: 86%;
+        z-index: 99999;
+      }
+
+      button {
+        border-radius: 10rem;
+        padding: 1rem 1.25rem;
+        border: none;
+        height: auto;
+        background: $cascade;
+        i {
+          color: $blue-bayoux !important;
+        }
+        &:hover {
+          & > * {
+            color: $white !important;
+          }
+          background-color: $blue-bayoux;
+        }
+      }
       // button {
       //   overflow-wrap: unset;
       //   position: absolute;
@@ -40,9 +69,7 @@
 
       .graph {
         width: 23rem;
-        height: 100%;
-        margin-bottom: 40px;
-        padding: 30px;
+        height: 23rem;
         border: none;
         background: $bg-gradient2 no-repeat fixed;
         border-radius: 1rem;
@@ -110,7 +137,6 @@
   }
 
   .second-container {
-    flex: 3 !important;
     height: 100%;
     width: 100%;
     background: $bg-gradient2 no-repeat fixed;
@@ -119,7 +145,7 @@
     color: $white !important;
     overflow: auto;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-
+    margin-left: 2rem;
     th {
       border-left: none;
       border-right: none;

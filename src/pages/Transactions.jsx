@@ -1,6 +1,6 @@
 import UserBalance from "../components/Dashboard/UserBalance";
 import ControlCard from "../components/Transactions/ControlCard/ControlCard";
-import TransactionHistory from "../components/Transactions/TransactionHistory/TransactionHistory";
+// import TransactionHistory from "../components/Transactions/TransactionHistory/TransactionHistory";
 import '../styles/Dashboard.scss';
 
 const Transactions = () => {
@@ -13,7 +13,7 @@ const Transactions = () => {
         <UserBalance />
         <ControlCard />
       </div>
-      <TransactionHistory />
+      {/* <TransactionHistory /> */}
     </div>
   );
 };
