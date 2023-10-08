@@ -15,7 +15,6 @@
   .first-container {
     height: 100%;
 
-
     .slide-controls {
       display: flex;
       flex-direction: column;
@@ -138,6 +137,7 @@
   }
 
   .second-container {
+    position:static;
     height: 100%;
     width: 100%;
     background: $bg-gradient2 no-repeat fixed;
@@ -169,5 +169,11 @@
     tr:nth-child(odd) td {
       background-color: $bizarre-light;
     }
+  }
+}
+
+.budget-photo {
+  img {
+    width: 200px;
   }
 }

@@ -6,6 +6,7 @@ import ExpenseChart from "../components/BudgetApp/Chart/ExpensesChart";
 import UserBalance from "../components/Dashboard/UserBalance";
 import { Card, CardStyles } from "../components/Dashboard/DashboardCards/Card";
 import Calendar from "react-calendar";
+import BudgetPhoto from "../assets/budget.png";
 import "../styles/Budget.scss";
 import data from "../assets/input-expenses.json";
 
@@ -18,6 +19,8 @@ function Budget() {
   const [currentSlide, setCurrentSlide] = useState("graph");
   const [totalSavingsBalance, setTotalSavingsBalance] = useState(0);
   const [totalExpenses, setTotalExpenses] = useState(0);
+  const [chartLabels, setChartLabels] = useState([]);
+  const [chartData, setChartData] = useState([]);
 
   // will initialize the data from input-expenses.json
   useEffect(() => {
@@ -35,15 +38,34 @@ function Budget() {
       const adminAccount = userData.find((account) => account.type === "Admin");
       if (adminAccount) {
         setTotalSavingsBalance(adminAccount.balance);
-      }}}, []);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const storedExpenses = localStorage.getItem("expenses");
+    if (storedExpenses) {
+      const parsedExpenses = JSON.parse(storedExpenses);
+      const newTotalExpenses = parsedExpenses.reduce((total, expense) => total + expense.expense_cost, 0);
+      setTotalExpenses(newTotalExpenses);
+      const remainingBalance = totalSavingsBalance - newTotalExpenses;
+      const updatedChartLabels = [...parsedExpenses.map((expense) => expense.expense_name), "Remaining Balance",];
+      const updatedChartData = [...parsedExpenses.map((expense) => expense.expense_cost), remainingBalance,];
+      setChartLabels(updatedChartLabels);
+      setChartData(updatedChartData);
+    }
+  }, [totalExpenses, totalSavingsBalance]);
 
   const handleExpenses = (newExpense) => {
     if (editingExpense) {
       setExpenses((prevExpenses) =>
         prevExpenses.map((expense) =>
-          expense.id === editingExpense.id ? newExpense : expense));
+          expense.id === editingExpense.id ? newExpense : expense
+        )
+      );
       const updatedExpenses = expenses.map((expense) =>
-        expense.id === editingExpense.id ? newExpense : expense);
+        expense.id === editingExpense.id ? newExpense : expense
+      );
       localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
       setEditingExpense(null);
       setShowEditModal(false);
@@ -51,17 +73,13 @@ function Budget() {
       setExpenses((prevExpenses) => {
         const updatedExpenses = [...prevExpenses, newExpense];
         localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
-        return updatedExpenses;});}
+        return updatedExpenses;
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
   };
-
-  // will check if may data na from localStorage
-  useEffect(() => {
-    const storedExpenses = localStorage.getItem("expenses");
-    if (storedExpenses) {
-      const parsedExpenses = JSON.parse(storedExpenses);
-      const newTotalExpenses = parsedExpenses.reduce(
-        (total, expense) => total + expense.expense_cost, 0);
-      setTotalExpenses(newTotalExpenses);}}, [totalExpenses]);
 
   const handleEditExpense = (expense) => {
     setEditingExpense(expense);
@@ -75,9 +93,7 @@ function Budget() {
 
   const handleDeleteConfirm = () => {
     if (deletingExpense) {
-      const deletedIndex = expenses.findIndex(
-        (expense) => expense.id === deletingExpense.id
-      );
+      const deletedIndex = expenses.findIndex((expense) => expense.id === deletingExpense.id);
 
       if (deletedIndex !== -1) {
         expenses.splice(deletedIndex, 1);
@@ -88,6 +104,10 @@ function Budget() {
     }
     setDeletingExpense(null);
     setShowDeleteModal(false);
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   };
 
   const handleModalClose = () => {
@@ -95,10 +115,7 @@ function Budget() {
     setShowDeleteModal(false);
   };
 
-  // chart data initialization
   const remainingBalance = totalSavingsBalance - totalExpenses;
-  const chartLabels = [...expenses.map((expense) => expense.expense_name), "Remaining Balance",];
-  const chartData = [...expenses.map((expense) => expense.expense_cost), remainingBalance,];
 
   return (
     <div className="main">
@@ -109,7 +126,6 @@ function Budget() {
         <div className="dashboard-cards">
           <UserBalance />
           <Card
-            // data={totalSavingsBalance - TotalExpenses()}
             data={remainingBalance.toLocaleString("en-PH", {
               style: "currency",
               currency: "PHP",
@@ -118,7 +134,15 @@ function Budget() {
             title={"Remaining Balance"}
             style={CardStyles.default}
           />
-          <Card data={"Yow"} title={"Quotes"} style={CardStyles.default} />
+          <Card
+            data={
+              <div className="budget-photo">
+                <img src={BudgetPhoto} alt="budgetPhoto" />
+              </div>
+            }
+            title={""}
+            style={CardStyles.default}
+          />
         </div>
         <div className="budget-content">
           <div className="first-container">
