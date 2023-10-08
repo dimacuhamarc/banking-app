@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import warningGIF from "../../assets/warning.gif";
+import "./AccountCardModal.scss";
 
 export default function AccountCard(props) {
   const [balance, setBalance] = useState(0);
@@ -6,6 +8,7 @@ export default function AccountCard(props) {
   const [accountNumber, setAccountNumber] = useState("");
   const [type, setType] = useState("");
   const [admin, setAdmin] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   // const [showEditModal, setShowEditModal] = useState(false);
 
   const handleUserDetails = () => {
@@ -16,9 +19,18 @@ export default function AccountCard(props) {
     setAdmin(props.isAdmin);
   };
 
-  // useEffect(() => {
-  //   handleUserDetails();
-  // });
+  const handleDeleteAccount = () => {
+    setDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    // props.onConfirmDelete(props.id);
+    setDeleteModalOpen(false);
+  };
+
+  const handleCancelDelete = () => {
+    setDeleteModalOpen(false);
+  };
 
   useEffect(() => {
     handleUserDetails();
@@ -28,13 +40,17 @@ export default function AccountCard(props) {
     if (!admin) {
       return (
         <div className="controls">
-          <button onClick={() => onEdit(props)}>
-            <i className="fa-solid fa-pen-to-square"></i>
-          </button>
+          <div>
+            <button>
+              <i className="fa-solid fa-pen-to-square"></i>
+            </button>
+          </div>
 
-          <button onClick={() => onDelete(props)}>
-            <i className="fa-solid fa-delete-left"></i>
-          </button>
+          <div>
+            <button onClick={handleDeleteAccount}>
+              <i className="fa-solid fa-delete-left"></i>
+            </button>
+          </div>
         </div>
       );
     }
@@ -51,6 +67,7 @@ export default function AccountCard(props) {
     .replace(/\d{4}(?=.)/g, "$& ");
 
   return (
+    <>
     <div className="account-card">
       <div className="details">
         <h2>{formattedBalance}</h2>
@@ -59,6 +76,19 @@ export default function AccountCard(props) {
         <p>{type} Account</p>
       </div>
       {handleAdmin()}
+
     </div>
+    
+    {deleteModalOpen && (
+        <div className="delete-modal">
+          <div className="delete-modal-box">
+            <img src={warningGIF} alt="warning" />
+            <p>Are you sure you want to delete this user?</p>
+            <button onClick={handleConfirmDelete}>Confirm</button>
+            <button onClick={handleCancelDelete}>Cancel</button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

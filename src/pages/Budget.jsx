@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AddExpense from "../components/BudgetApp/ExpenseActions/AddExpenses";
 import EditExpense from "../components/BudgetApp/ExpenseActions/EditExpense";
 import DeleteExpense from "../components/BudgetApp/ExpenseActions/DeleteExpense";
+import ExpenseChart from "../components/BudgetApp/Chart/ExpensesChart";
 import UserBalance from "../components/Dashboard/UserBalance";
 import { Card, CardStyles } from "../components/Dashboard/DashboardCards/Card";
 import Calendar from "react-calendar";
@@ -14,47 +15,53 @@ function Budget() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [deletingExpense, setDeletingExpense] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState("calendar");
+  const [currentSlide, setCurrentSlide] = useState("graph");
+  const [totalSavingsBalance, setTotalSavingsBalance] = useState(0);
+  const [totalExpenses, setTotalExpenses] = useState(0);
+
+  // will initialize the data from input-expenses.json
+  useEffect(() => {
+    const initialTotalExpenses = data.reduce((total, expense) => total + expense.expense_cost, 0);
+    setTotalExpenses(initialTotalExpenses);}, []);
 
   useEffect(() => {
     const storedExpenses = localStorage.getItem("expenses");
-
     if (storedExpenses) {
       setExpenses(JSON.parse(storedExpenses));
     }
-    
-  }, []);
+    const storedUserData = localStorage.getItem("userData");
+    if (storedUserData) {
+      const userData = JSON.parse(storedUserData);
+      const adminAccount = userData.find((account) => account.type === "Admin");
+      if (adminAccount) {
+        setTotalSavingsBalance(adminAccount.balance);
+      }}}, []);
 
   const handleExpenses = (newExpense) => {
     if (editingExpense) {
       setExpenses((prevExpenses) =>
         prevExpenses.map((expense) =>
-          expense.id === editingExpense.id ? newExpense : expense
-        )
-      );
+          expense.id === editingExpense.id ? newExpense : expense));
       const updatedExpenses = expenses.map((expense) =>
-        expense.id === editingExpense.id ? newExpense : expense
-      );
+        expense.id === editingExpense.id ? newExpense : expense);
       localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
-
       setEditingExpense(null);
       setShowEditModal(false);
-      TotalExpenses();
     } else {
       setExpenses((prevExpenses) => {
         const updatedExpenses = [...prevExpenses, newExpense];
         localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
-        return updatedExpenses;
-      });
-    }
+        return updatedExpenses;});}
   };
 
-  const TotalExpenses = () =>
-  expenses.reduce((total, expense) => total + expense.expense_cost, 0);
-
+  // will check if may data na from localStorage
   useEffect(() => {
-    localStorage.setItem("expenses", JSON.stringify(expenses));
-  });
+    const storedExpenses = localStorage.getItem("expenses");
+    if (storedExpenses) {
+      const parsedExpenses = JSON.parse(storedExpenses);
+      const newTotalExpenses = parsedExpenses.reduce(
+        (total, expense) => total + expense.expense_cost, 0);
+      setTotalExpenses(newTotalExpenses);}}, [totalExpenses]);
 
   const handleEditExpense = (expense) => {
     setEditingExpense(expense);
@@ -68,18 +75,18 @@ function Budget() {
 
   const handleDeleteConfirm = () => {
     if (deletingExpense) {
-      const deletedIndex = expenses.findIndex((expense) => expense.id === deletingExpense.id);
-  
+      const deletedIndex = expenses.findIndex(
+        (expense) => expense.id === deletingExpense.id
+      );
+
       if (deletedIndex !== -1) {
         expenses.splice(deletedIndex, 1);
-  
         const updatedExpenses = expenses.map((expense, index) => ({...expense, id: index,}));
         setExpenses(updatedExpenses);
         localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
       }
     }
     setDeletingExpense(null);
-    TotalExpenses();
     setShowDeleteModal(false);
   };
 
@@ -87,6 +94,11 @@ function Budget() {
     setShowEditModal(false);
     setShowDeleteModal(false);
   };
+
+  // chart data initialization
+  const remainingBalance = totalSavingsBalance - totalExpenses;
+  const chartLabels = [...expenses.map((expense) => expense.expense_name), "Remaining Balance",];
+  const chartData = [...expenses.map((expense) => expense.expense_cost), remainingBalance,];
 
   return (
     <div className="main">
@@ -97,7 +109,12 @@ function Budget() {
         <div className="dashboard-cards">
           <UserBalance />
           <Card
-            data={TotalExpenses}
+            // data={totalSavingsBalance - TotalExpenses()}
+            data={remainingBalance.toLocaleString("en-PH", {
+              style: "currency",
+              currency: "PHP",
+              minimumFractionDigits: 2,
+            })}
             title={"Remaining Balance"}
             style={CardStyles.default}
           />
@@ -130,7 +147,9 @@ function Budget() {
                   <Calendar />
                 </div>
               ) : (
-                <div className="graph">*Graph Here*</div>
+                <div className="graph">
+                  <ExpenseChart labels={chartLabels} data={chartData} />
+                </div>
               )}
             </div>
           </div>
