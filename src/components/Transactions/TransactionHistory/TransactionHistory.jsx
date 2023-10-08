@@ -1,34 +1,44 @@
+import Transaction from './Transaction';
+import './TransactionHistory.scss';
+import { useState, useEffect } from 'react';
 
 export default function TransactionHistory() {
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    const fetchUserTransactions = async () => {
+      const userDataStr = localStorage.getItem('userData');
+      const userData = JSON.parse(userDataStr);
+
+      setTransactions(userData[0].transactions);
+    }
+    fetchUserTransactions();
+
+    const interval = setInterval(() => {
+      fetchUserTransactions();
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  },[]);
+
   return (
-    <div>
-      <h1>Transaction History</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Transaction</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>12/12/2020</td>
-            <td>Deposit</td>
-            <td>$500</td>
-          </tr>
-          <tr>
-            <td>12/12/2020</td>
-            <td>Withdraw</td>
-            <td>$200</td>
-          </tr>
-          <tr>
-            <td>12/12/2020</td>
-            <td>Transfer</td>
-            <td>$100</td>
-          </tr>
-        </tbody>
-      </table>
+    <div className='transaction-container'>
+      <div className='transaction-history'>
+        {
+          transactions.map((transaction) => {
+            return (
+              <Transaction 
+                key={transaction.id}
+                amount={transaction.amount}
+                date={transaction.date}
+                from={transaction.from}
+                to={transaction.to}
+                type={transaction.type}
+              />
+            );
+          })
+        }
+      </div>
     </div>
   );
 }

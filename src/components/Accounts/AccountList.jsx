@@ -5,21 +5,8 @@ import data from '../../assets/user-data.json';
 export default function AccountList() {
   const [users, setUsers] = useState(data);
 
-  // const handleUsers = () => {
-  //   setUsers(data);
-  // }
-
-  // useEffect(() => {
-  //   handleUsers();
-  // });
-
-  const handleUsers = (updatedUsers) => {
-    setUsers(updatedUsers);
-    localStorage.setItem("nonAdminAccount", JSON.stringify(updatedUsers));
-  }
-
   useEffect(() => {
-    const localStorageData = localStorage.getItem("nonAdminAccount");
+    const localStorageData = localStorage.getItem("userData");
     
     if (localStorageData) {
       const parsedData = JSON.parse(localStorageData);

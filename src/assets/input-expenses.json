@@ -1,7 +1,7 @@
 [
     {
         "expense_name": "Office Supplies",
-        "expense_cost": 1500,
+        "expense_cost": 5000,
         "due_date": "2023-10-01",
         "id": 0
     }
