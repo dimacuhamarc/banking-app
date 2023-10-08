@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import successImage from "../../../assets/successful.gif";
 import "./AccountActions.scss";
 import data from "../../../assets/user-data.json";
 
@@ -7,16 +8,18 @@ function EnrollAccount({ onEnroll }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [initialDeposit, setInitialDeposit] = useState("");
-  const [accountType, setAccountType] = useState("savings");
+  const [accountType, setAccountType] = useState("Savings");
   const [showModal, setShowModal] = useState(false);
   const [generatedAccountNumber, setGeneratedAccountNumber] = useState("");
   const [showGeneratedNumber, setShowGeneratedNumber] = useState(false);
   const [newId, setNewId] = useState(0);
+  const [successModalVisible, setSuccessModalVisible] = useState(false);
+  const [refreshPage, setrefreshPage] = useState(false);
 
   useEffect(() => {
     setGeneratedAccountNumber("");
-    calculateNewId()
-  }, []); 
+    calculateNewId();
+  }, []);
 
   useEffect(() => {
     if (!showModal) {
@@ -25,10 +28,19 @@ function EnrollAccount({ onEnroll }) {
     }
   }, [showModal]);
 
+  useEffect(() => {
+    if (refreshPage) {
+      window.location.reload();
+    }
+  }, [refreshPage]);
+
   const calculateNewId = () => {
-    const maxId = Math.max(...data.map((item) => item.id), 0);
-    setNewId(maxId + 1);
+    const localStorageData = localStorage.getItem("userData");
+    const userData = localStorageData ? JSON.parse(localStorageData) : [];
+    const maxId = Math.max(...userData.map((item) => item.id), 0);
+    return maxId + 1;
   };
+  
 
   const generateAccountNumber = () => {
     let accountNumber;
@@ -39,7 +51,7 @@ function EnrollAccount({ onEnroll }) {
         .toString()
         .padStart(8, "0");
       accountNumber = `29${radAccountNumber}`;
-    } while (usedAccountNumbers.has(accountNumber)); // check if existing ung accnt num
+    } while (usedAccountNumbers.has(accountNumber));
 
     const formattedAccountNumber = accountNumber
       .toString()
@@ -69,13 +81,18 @@ function EnrollAccount({ onEnroll }) {
 
     onEnroll(newAccount);
 
-    setNewId(newId + 1);
+    setNewId((prevId) => prevId + 1);
     setAccountName("");
     setEmail("");
     setPassword("");
     setInitialDeposit("");
-    setAccountType("savings");
+    setAccountType("Savings");
     setShowModal(false);
+    setSuccessModalVisible(true);
+    setTimeout(() => {
+      setSuccessModalVisible(false);
+      setrefreshPage(true);
+    }, 3000);
   };
 
   return (
@@ -164,14 +181,11 @@ function EnrollAccount({ onEnroll }) {
                   value={accountType}
                   onChange={(event) => setAccountType(event.target.value)}
                 >
-                  <option 
-                    value="select" 
-                    disabled
-                    selected>
+                  <option value="select" disabled selected>
                     Select Account Type
                   </option>
-                  <option value="savings">Savings</option>
-                  <option value="admin">Admin</option>
+                  <option value="Savings">Savings</option>
+                  <option value="Admin">Admin</option>
                 </select>{" "}
               </fieldset>
               <br />
@@ -183,7 +197,7 @@ function EnrollAccount({ onEnroll }) {
                   name="gen-account-num"
                   type="text"
                   id="generatedAccountNumber"
-                  value={showGeneratedNumber ? generatedAccountNumber : ''}
+                  value={showGeneratedNumber ? generatedAccountNumber : ""}
                   readOnly
                 />
 
@@ -192,12 +206,14 @@ function EnrollAccount({ onEnroll }) {
                   type="button"
                   onClick={handleGenerateAccountNumber}
                 >
-                  Create Account Number
+                  Assign an Account Number
                 </button>
               </fieldset>
 
               <div className="enroll-btn">
-                <button className="save-enroll-button">Enroll</button>
+                <button className="save-enroll-button">
+                  Enroll New Account
+                </button>
                 <button
                   className="save-enroll-button"
                   type="button"
@@ -207,6 +223,15 @@ function EnrollAccount({ onEnroll }) {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {successModalVisible && (
+        <div className="success-modal">
+          <div className="success-modal-box">
+          <img src={successImage} alt="Success" />
+          <p>Successfully enrolled!</p>
           </div>
         </div>
       )}
