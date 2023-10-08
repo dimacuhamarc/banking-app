@@ -113,7 +113,7 @@ function Budget() {
                     currentSlide === "calendar" ? "active" : ""
                   }`}
                 >
-                  <i class="fa-solid fa-chevron-left"></i>
+                  <i className="fa-solid fa-chevron-left"></i>
                 </button>
                 <button
                   onClick={() => setCurrentSlide("graph")}
@@ -121,7 +121,7 @@ function Budget() {
                     currentSlide === "graph" ? "active" : ""
                   }`}
                 >
-                  <i class="fa-solid fa-chevron-right"></i>
+                  <i className="fa-solid fa-chevron-right"></i>
                 </button>
               </div>
 

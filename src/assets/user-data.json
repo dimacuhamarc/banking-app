@@ -4,28 +4,24 @@
     "email": "admin@coinpal.ph",
     "password": "admin1234",
     "number": "2416233523",
-    "balance": 839314.61,
+    "balance": 99480.00,
     "type": "Admin",
     "isAdmin": true,
     "id": 0,
     "transactions": [
       {
-        "id": 0,
-        "date": "2020-10-10",
-        "amount": 1000,
-        "type": "Deposit",
-        "status": "Completed",
-        "from": "Wallet",
-        "to": "Kim Min-Jeong"
+        "amount": 100000,
+        "date": "10/8/2023, 3:20:36 AM",
+        "from": "User",
+        "to": "Bank Account",
+        "type": "Deposit"
       },
       {
-        "id": 1,
-        "date": "2020-10-10",
-        "amount": 1000,
-        "type": "Transfer",
-        "status": "Completed",
-        "from": "Kim Min-Jeong",
-        "to": "Kim Jisoo"
+        "amount": 520,
+        "date": "10/8/2023, 3:20:54 AM",
+        "from": "Bank Account",
+        "to": "User",
+        "type": "Withdraw"
       }
     ]
   },

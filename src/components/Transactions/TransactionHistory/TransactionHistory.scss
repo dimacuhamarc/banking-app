@@ -1,0 +1,75 @@
+@use '../../../styles/variables' as *;
+
+
+
+.transaction-container {
+  height: 100%;
+  overflow: scroll;
+}
+
+.transaction-history {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  gap: 0.5rem;
+  border-radius: 10px;
+
+  .transaction-card {
+    width: 100%;
+    height: 5rem;
+    border-radius: 10px;
+    background: $accounts;
+    border: 1.5px solid $blue-bayoux;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem 2rem;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      transform: scale(1.04);
+      filter: brightness(1.2);
+    }
+  }
+
+  .details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;;
+    
+    * {
+      width: 100%;
+    }
+
+    #amount {
+      color: $text;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    #date {
+      color: $cod-gray;
+      font-size: 1rem;
+      font-weight: 500;
+      text-align: right;
+    }
+
+    #type, #from, #to {
+      color: $text;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    h2 {
+      color: $text;
+    }
+    p {
+      color: $cod-gray;
+    }
+  }
+}

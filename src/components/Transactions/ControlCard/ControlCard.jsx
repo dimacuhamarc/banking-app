@@ -50,19 +50,26 @@ export default function ControlCard() {
   );
 }
 
+const addTransaction = (transaction) => {
+  const userDataStr = localStorage.getItem("userData");
+  const userData = JSON.parse(userDataStr);
+  userData[0].transactions.unshift(transaction);
+  localStorage.setItem("userData", JSON.stringify(userData));
+};
+
 const ControlModal = ({ModalType, closeModalHandler}) => {
   const [balance, setBalance] = useState(0);
   const [holder, setHolder] = useState('');
   const [acHolder, setAcHolder] = useState('');
-  // const [acReciever, setAcReciever] = useState('');
+  const [acReciever, setAcReciever] = useState('');
   const [amount, setAmount] = useState(null);
+  const [users, setUsers] = useState([]);
 
-
-  
   useEffect(() => {
     const fetchUserData = async () => {
       const userDataStr = localStorage.getItem("userData");
       const response = JSON.parse(userDataStr);
+      setUsers(response);
       setBalance(response[0].balance);
       setAcHolder(response[0].number);
       setHolder(response[0].holder);
@@ -89,18 +96,68 @@ const ControlModal = ({ModalType, closeModalHandler}) => {
       userData[0].balance = newBalance;
       localStorage.setItem('userData', JSON.stringify(userData));
       setBalance(newBalance);
+
+      const transaction = { 
+        amount: parseFloat(amount),
+        date: new Date().toLocaleString(),
+        from: 'User',
+        to: 'Bank Account',
+        type: 'Deposit'
+      };
+
+      addTransaction(transaction);
+
+
     } else if (ModalType === 'Withdraw') {
       const newBalance = parseFloat(balance) - parseFloat(amount);
       const userData = JSON.parse(localStorage.getItem('userData'));
       userData[0].balance = newBalance;
       localStorage.setItem('userData', JSON.stringify(userData));
       setBalance(newBalance);
+
+      const transaction = { 
+        id: userData[0].transactions.length,
+        amount: parseFloat(amount),
+        date: new Date().toLocaleString(),
+        from: 'Bank Account',
+        to: 'User',
+        type: 'Withdraw'
+      };
+
+      addTransaction(transaction);
+
     } else if (ModalType === 'Transfer') {
-      const newBalance = balance - amount;
+      const newBalance = parseFloat(balance) - parseFloat(amount);
       const userData = JSON.parse(localStorage.getItem('userData'));
       userData[0].balance = newBalance;
+      
+      const recieverData = userData.filter((users) => users.number === acReciever);
+
+      const recieverID = recieverData[0].id;
+
+      const newRecieverBal = parseFloat(recieverData[0].balance) + parseFloat(amount);
+
+      userData[recieverID].balance = newRecieverBal;
+
+      console.log(recieverData);
+            
       localStorage.setItem('userData', JSON.stringify(userData));
       setBalance(newBalance);
+
+      const transaction = { 
+        id: userData[0].transactions.length,
+        amount: parseFloat(amount),
+        date: new Date().toLocaleString(),
+        from: 'Bank Account',
+        to: recieverData[0].holder.toString(),
+        type: 'Transfer'
+      };
+
+      console.log(transaction);
+
+      addTransaction(transaction);
+
+      
     }
     closeModalHandler();
   }
@@ -125,6 +182,17 @@ const ControlModal = ({ModalType, closeModalHandler}) => {
             value={amount}
             placeholder="Enter Amount Here"
             onChange={(event) => setAmount(event.target.value)}/>
+
+            {ModalType === 'Transfer' && (
+              <select value={acReciever} onChange={(event) => setAcReciever(event.target.value)}>
+                <option value=''>Select Account</option>
+                {users.splice(1,users.length).map((user) => (
+                  <option key={user.id} value={user.number}>
+                    {user.holder} | {formatAccountNumber(user.number)}
+                  </option>
+                ))}
+              </select>
+            )}
           <label>{ModalType} Amount: {formattedAmount}</label>
           <button id='btn-submit'>
             {ModalType}
