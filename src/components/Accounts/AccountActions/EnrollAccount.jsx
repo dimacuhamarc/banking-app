@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import successImage from "../../../assets/successful.gif";
+import userWarning from "../../../assets/user-warning.png"
 import "./AccountActions.scss";
 import data from "../../../assets/user-data.json";
 
@@ -15,6 +16,7 @@ function EnrollAccount({ onEnroll }) {
   const [newId, setNewId] = useState(0);
   const [successModalVisible, setSuccessModalVisible] = useState(false);
   const [refreshPage, setrefreshPage] = useState(false);
+  const [showDuplicateUserModal, setShowDuplicateUserModal] = useState(false);
 
   useEffect(() => {
     setGeneratedAccountNumber("");
@@ -40,7 +42,6 @@ function EnrollAccount({ onEnroll }) {
     const maxId = Math.max(...userData.map((item) => item.id), 0);
     return maxId + 1;
   };
-  
 
   const generateAccountNumber = () => {
     let accountNumber;
@@ -66,8 +67,28 @@ function EnrollAccount({ onEnroll }) {
     setShowGeneratedNumber(true);
   };
 
+  const lowercaseAccountName = accountName.toLowerCase();
+
   const enrollAccountHandler = (event) => {
     event.preventDefault();
+
+    const localStorageData = localStorage.getItem("userData");
+    const userData = localStorageData ? JSON.parse(localStorageData) : [];
+
+    const isDuplicate = userData.some(
+      (item) => item.holder.toLowerCase() === lowercaseAccountName
+    );
+
+    if (isDuplicate) {
+      setShowDuplicateUserModal(true);
+      setShowModal(false);
+      setTimeout(() => {
+        setShowDuplicateUserModal(false);
+        setShowModal(true);
+      }, 4000);
+
+      return;
+    }
 
     const newAccount = {
       holder: accountName,
@@ -77,6 +98,8 @@ function EnrollAccount({ onEnroll }) {
       balance: Number(initialDeposit),
       type: accountType,
       id: newId,
+      isAdmin: false,
+      transactions: [{}],
     };
 
     onEnroll(newAccount);
@@ -121,8 +144,9 @@ function EnrollAccount({ onEnroll }) {
                   name="account-name-input"
                   id="accountNameModal"
                   value={accountName}
-                  placeholder="Enter Account Name Here"
+                  placeholder="Enter First and Last Name Here"
                   onChange={(event) => setAccountName(event.target.value)}
+                  pattern="^[^0-9].*"
                 />{" "}
               </fieldset>
               <br />
@@ -153,7 +177,7 @@ function EnrollAccount({ onEnroll }) {
                   value={password}
                   placeholder="Enter Password Here"
                   onChange={(event) => setPassword(event.target.value)}
-                />{" "}
+                />
               </fieldset>
               <br />
 
@@ -168,6 +192,7 @@ function EnrollAccount({ onEnroll }) {
                   value={initialDeposit}
                   placeholder="Enter Deposit Amount"
                   onChange={(event) => setInitialDeposit(event.target.value)}
+                  min="200"
                 />{" "}
               </fieldset>
 
@@ -226,12 +251,19 @@ function EnrollAccount({ onEnroll }) {
           </div>
         </div>
       )}
-
       {successModalVisible && (
         <div className="success-modal">
           <div className="success-modal-box">
-          <img src={successImage} alt="Success" />
-          <p>Successfully enrolled!</p>
+            <img src={successImage} alt="Success" />
+            <p>Successfully enrolled!</p>
+          </div>
+        </div>
+      )}
+      {showDuplicateUserModal && (
+        <div className="duplicate-user-modal">
+          <div className="duplicate-user-modal-box">
+            <img src={userWarning} alt="Existing User" />
+            <p>User Already Exists!</p>
           </div>
         </div>
       )}
