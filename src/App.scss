@@ -11,6 +11,10 @@
   text-decoration: none;
 }
 
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
 .main {
   z-index: 0;
   display: flex;

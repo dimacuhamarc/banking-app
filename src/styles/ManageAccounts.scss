@@ -29,6 +29,7 @@
 .accounts {
   display: flex;
   overflow: scroll;
+  overflow-x: hidden;
   height: 100%;
   width: 100%;
   border-radius: 20px;
