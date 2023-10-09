@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import warningGIF from "../../assets/warning.gif";
 import "./AccountCardModal.scss";
+import { formatAccountNumber, formatData } from "../../utils/formatData";
 
 export default function AccountCard(props) {
   const [balance, setBalance] = useState(0);
@@ -8,8 +9,8 @@ export default function AccountCard(props) {
   const [accountNumber, setAccountNumber] = useState("");
   const [type, setType] = useState("");
   const [admin, setAdmin] = useState(false);
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  // const [showEditModal, setShowEditModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState("");
 
   const handleUserDetails = () => {
     setBalance(props.balance);
@@ -17,19 +18,6 @@ export default function AccountCard(props) {
     setAccountNumber(props.number);
     setType(props.type);
     setAdmin(props.isAdmin);
-  };
-
-  const handleDeleteAccount = () => {
-    setDeleteModalOpen(true);
-  };
-
-  const handleConfirmDelete = () => {
-    // props.onConfirmDelete(props.id);
-    setDeleteModalOpen(false);
-  };
-
-  const handleCancelDelete = () => {
-    setDeleteModalOpen(false);
   };
 
   useEffect(() => {
@@ -41,13 +29,13 @@ export default function AccountCard(props) {
       return (
         <div className="controls">
           <div>
-            <button>
+            <button onClick={handleEdit}>
               <i className="fa-solid fa-pen-to-square"></i>
             </button>
           </div>
 
           <div>
-            <button onClick={handleDeleteAccount}>
+            <button onClick={handleDelete}>
               <i className="fa-solid fa-delete-left"></i>
             </button>
           </div>
@@ -56,15 +44,25 @@ export default function AccountCard(props) {
     }
   };
 
-  const formattedBalance = new Intl.NumberFormat("en-PH", {
-    style: "currency",
-    currency: "PHP",
-    currencyDisplay: "narrowSymbol",
-  }).format(balance);
+  const formattedBalance = formatData(balance);
+  const formattedAccountNumber = formatAccountNumber(accountNumber);
 
-  const formattedAccountNumber = accountNumber
-    .toString()
-    .replace(/\d{4}(?=.)/g, "$& ");
+  const handleDelete = () => {
+    setShowModal(true);
+    setModalType("Delete");
+  };
+
+  const handleEdit = () => {
+    setShowModal(true);
+    setModalType("Edit");
+  };
+
+  const closeModalHandler = () => {
+    setShowModal(false);
+    setModalType("");
+  };
+
+
 
   return (
     <>
@@ -76,19 +74,45 @@ export default function AccountCard(props) {
         <p>{type} Account</p>
       </div>
       {handleAdmin()}
-
     </div>
-    
-    {deleteModalOpen && (
-        <div className="delete-modal">
-          <div className="delete-modal-box">
-            <img src={warningGIF} alt="warning" />
-            <p>Are you sure you want to delete this user?</p>
-            <button onClick={handleConfirmDelete}>Confirm</button>
-            <button onClick={handleCancelDelete}>Cancel</button>
-          </div>
-        </div>
-      )}
+    {showModal && <AccountModal modalType={modalType} closeModalHandler={closeModalHandler} user={props}/>}
     </>
   );
 }
+
+const AccountModal = ({ modalType, closeModalHandler, user }) => {
+  const [balance, setBalance] = useState(0);
+  const [holder, setHolder] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
+  const [accountID, setAccountID] = useState("");
+
+  const handleUserDetails = () => {
+    setBalance(formatData(user.balance));
+    setHolder(user.holder);
+    setAccountNumber(formatAccountNumber(user.number));
+    setAccountID(user.id);
+  };
+
+  useEffect(() => {
+    handleUserDetails();
+  },[]);
+
+  return (
+    <div className="modal">
+      <div className="modal-box">
+        <img src={warningGIF} alt="warning" />
+        <div className="modal-message">
+          <h1> Are you sure you want to {modalType} this user? </h1>
+          <h2>{holder}</h2>
+          <p>{accountNumber}</p>
+          <span>{balance}</span>
+        </div>
+        <div className="modal-controls">
+          <button>Confirm</button>
+          <button onClick={closeModalHandler}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
