@@ -7,8 +7,6 @@ export const AccountBanking = () => {
   const [bankingSelector, setBankingSelector] = useState('');
   const [modalType, setModalType] = useState('');
   const [users, setUsers] = useState([]);
-  const [acReciever, setAcReciever] = useState('');
-  const [acSender, setAcSender] = useState('');
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -173,10 +171,7 @@ const BankingModal = ({ ModalType, closeModalHandler }) => {
           setError('');
           setIsError(false);
         }
-      } else {
-        setError('Please select an account');
-        setIsError(true);
-      }
+      } 
     }
   }
 
@@ -235,7 +230,7 @@ const BankingModal = ({ ModalType, closeModalHandler }) => {
               placeholder="Amount"
               required
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={(e) => {setAmount(e.target.value); errorHandler(e.target.value, ModalType, users[firstAccount].balance)}}
               min={0}
               max={1000000}
               
@@ -266,7 +261,7 @@ const BankingModal = ({ ModalType, closeModalHandler }) => {
                     </option>
                   ))}
                 </select>
-                <label htmlFor="">{secondAccount}</label>
+                {/* <label htmlFor="">{secondAccount}</label> */}
               </>
             )}
             <button type="submit">{ModalType}</button>

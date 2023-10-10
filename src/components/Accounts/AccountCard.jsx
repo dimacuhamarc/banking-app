@@ -27,9 +27,9 @@ export default function AccountCard({ balance, holder, number, type, isAdmin, on
       return (
         <div className="controls">
           <div>
-            <button onClick={() => onEdit(number)}>
+            {/* <button onClick={() => onEdit(number)}>
               <i className="fa-solid fa-pen-to-square"></i>
-            </button>
+            </button> */}
           </div>
 
           <div>

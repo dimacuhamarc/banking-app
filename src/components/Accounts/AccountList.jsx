@@ -145,7 +145,7 @@ export default function AccountList() {
       {deleteConfirmModal && (
         <AccountModal
           isOpen={deleteConfirmModal}
-          operation="deleted"
+          operation="Deleted"
           accountSelected={userToDelete.holder}
           onContinue={handleContinue}
         />

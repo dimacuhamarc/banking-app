@@ -16,7 +16,7 @@ export default function AccountModal({
       <div className='modal-box'>
         <img src={warningGIF} alt="warning" />
         <div className="modal-message">
-          <h1>{operation} sucessfully</h1>
+          <h1>{operation} Sucessfully</h1>
           <h2>{accountSelected}</h2>
         </div>
         <div className="modal-controls">
