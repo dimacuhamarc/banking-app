@@ -3,6 +3,7 @@ import '../App.scss';
 import {Card, CardStyles} from '../components/Dashboard/DashboardCards/Card';
 import { Link } from "react-router-dom";
 import UserBalance from '../components/Dashboard/UserBalance';
+import warningGIF from "../assets/warning.gif";
 
 const Dashboard = () => {
   return (
@@ -14,9 +15,6 @@ const Dashboard = () => {
         <div className='dashboard-cards'>
           <div>
             <UserBalance />
-            <div>
-              
-            </div>
           </div>
           <Link to='/budget'>
             <Card 
@@ -33,6 +31,10 @@ const Dashboard = () => {
             />
           </Link>
         </div>
+      </div>
+      <div>
+        <h1>My Account</h1>
+        <img src={warningGIF} id='gif' alt="Success" />
       </div>
     </div>
   );

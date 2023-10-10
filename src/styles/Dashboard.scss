@@ -9,13 +9,20 @@ body {
   .dashboard-cards {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 1rem;
     flex-wrap: wrap;
     width: calc(100vw - 255px);
     height: 10rem;
     row-gap: 1rem;
   }
 }
+
+// #gif {
+//   position:absolute;
+//   top: 0;
+//   left: 0;
+// }
 
 .dashboard  * {
   color: $cod-gray;

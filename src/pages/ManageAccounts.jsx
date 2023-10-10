@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AccountList from "../components/Accounts/AccountList";
 import EnrollAccount from "../components/Accounts/AccountActions/EnrollAccount";
-import Budget from "./Budget";
 import "../styles/ManageAccounts.scss";
 
 const ManageAccounts = () => {
@@ -36,21 +35,21 @@ const ManageAccounts = () => {
     }
   };
 
-  useEffect(() => {
-    const totalSavingsBalance = accounts
-      .filter((account) => account.type === "Savings")
-      .reduce((total, account) => total + account.balance, 0);
-    const adminAccountIndex = accounts.findIndex(
-      (account) => account.type === "Admin"
-    );
-    if (adminAccountIndex !== -1) {
-      const updatedAccounts = [...accounts];
-      updatedAccounts[adminAccountIndex].balance = totalSavingsBalance;
+  // useEffect(() => {
+  //   const totalSavingsBalance = accounts
+  //     .filter((account) => account.type === "Savings")
+  //     .reduce((total, account) => total + account.balance, 0);
+  //   const adminAccountIndex = accounts.findIndex(
+  //     (account) => account.type === "Admin"
+  //   );
+  //   if (adminAccountIndex !== -1) {
+  //     const updatedAccounts = [...accounts];
+  //     updatedAccounts[adminAccountIndex].balance = totalSavingsBalance;
 
-      setAccounts(updatedAccounts);
-      localStorage.setItem("userData", JSON.stringify(updatedAccounts));
-    }
-  }, [accounts]);
+  //     setAccounts(updatedAccounts);
+  //     localStorage.setItem("userData", JSON.stringify(updatedAccounts));
+  //   }
+  // }, [accounts]);
 
   return (
     <div className="main">
