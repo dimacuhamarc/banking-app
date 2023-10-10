@@ -3,7 +3,7 @@ import '../App.scss';
 import {Card, CardStyles} from '../components/Dashboard/DashboardCards/Card';
 import { Link } from "react-router-dom";
 import UserBalance from '../components/Dashboard/UserBalance';
-import warningGIF from "../assets/warning.gif";
+import dashBG from "../assets/dasb.png";
 
 const Dashboard = () => {
   return (
@@ -32,10 +32,9 @@ const Dashboard = () => {
           </Link>
         </div>
       </div>
-      <div>
-        <h1>My Account</h1>
-        <img src={warningGIF} id='gif' alt="Success" />
-      </div>
+      {/* <div>
+        <img src={dashBG} id='gif' alt="Success" />
+      </div> */}
     </div>
   );
 };
