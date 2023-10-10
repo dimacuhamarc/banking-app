@@ -247,6 +247,7 @@ const ControlModal = ({ModalType, closeModalHandler}) => {
             name="amount-input"
             id="amount"
             type="number"
+            pattern="^[^0-9].*"
             value={amount}
             placeholder="Enter Amount Here"
             onChange={(event) => {setAmount(event.target.value); errorHandler(event.target.value,ModalType);}}/>
