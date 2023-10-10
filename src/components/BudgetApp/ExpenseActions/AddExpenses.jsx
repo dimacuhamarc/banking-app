@@ -60,6 +60,7 @@ function AddExpense(props) {
                 value={expenseCost}
                 placeholder="Enter Cost Here"
                 onChange={(event) => setExpenseCost(event.target.value)}
+                min={1}
               /> <br />
               <label>Due Date</label><br />
               <input
