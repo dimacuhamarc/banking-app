@@ -103,7 +103,6 @@ function EnrollAccount({ onEnroll }) {
     };
 
     onEnroll(newAccount);
-
     setNewId((prevId) => prevId + 1);
     setAccountName("");
     setEmail("");
@@ -125,6 +124,8 @@ function EnrollAccount({ onEnroll }) {
         className="enroll-account-button"
         onClick={() => {
           setShowModal(true);
+          handleGenerateAccountNumber();
+          setInitialDeposit(200);
         }}
       >
         <i className="fas fa-user-plus"></i>
@@ -210,7 +211,6 @@ function EnrollAccount({ onEnroll }) {
                     Select Account Type
                   </option>
                   <option value="Savings">Savings</option>
-                  <option value="Admin">Admin</option>
                 </select>{" "}
               </fieldset>
               <br />

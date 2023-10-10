@@ -52,7 +52,10 @@
     appearance: textfield;
     background-color: $text;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
-
+    & :disabled{
+      background: grey !important;
+      color: grey !important;
+    }
     &:focus {
       outline: 2px solid $blue-bayoux;
     }

@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import warningGIF from "../../assets/warning.gif";
 import "./AccountCardModal.scss";
 import { formatAccountNumber, formatData } from "../../utils/formatData";
 

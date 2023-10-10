@@ -1,17 +1,30 @@
-import React, { useState, useEffect } from "react";
-import AccountModal from "./AccountModal";
-import AccountCard from "./AccountCard";
-import data from "../../assets/user-data.json";
+import React, { useState, useEffect } from 'react';
+import AccountModal from './AccountModal';
+import AccountCard from './AccountCard';
+import data from '../../assets/user-data.json';
+
+import './AccountCardModal.scss';
 
 export default function AccountList() {
   const [users, setUsers] = useState(data);
   const [editConfirmModal, setEditConfirmModal] = useState(false);
   const [deleteConfirmModal, setDeleteConfirmModal] = useState(false);
-  const [userToDelete, setUserToDelete] = useState(null);
-  const [userToEdit, setUserToEdit] = useState(null);
+  const [userToDelete, setUserToDelete] = useState();
+
+  const [userToEdit, setUserToEdit] = useState();
+
+  const [userNumber, setUserNumber] = useState();
+  const [userHolder, setUserHolder] = useState();
+  const [userEmail, setUserEmail] = useState();
+
+  const handleEditDetails = (user) => {
+    setUserNumber(user.number);
+    setUserHolder(user.holder);
+    setUserEmail(user.email);
+  };
 
   useEffect(() => {
-    const localStorageData = localStorage.getItem("userData");
+    const localStorageData = localStorage.getItem('userData');
 
     if (localStorageData) {
       const parsedData = JSON.parse(localStorageData);
@@ -22,11 +35,14 @@ export default function AccountList() {
   }, []);
 
   const updateLocalStorage = (updatedUsers) => {
-    localStorage.setItem("userData", JSON.stringify(updatedUsers));
+    localStorage.setItem('userData', JSON.stringify(updatedUsers));
   };
 
+  useEffect(() => {
+    console.log(userToEdit);
+  }, [userToEdit]);
+
   const handleEdit = (accountNumber) => {
-    // WIP
     setUserToEdit(users.find((user) => user.number === accountNumber));
   };
 
@@ -42,19 +58,16 @@ export default function AccountList() {
     setUserToDelete(users.find((user) => user.number === accountNumber));
   };
 
-  // PAU NOTES: THIS IS WIP
-  // const handleCancel = () => {
-  //   setEditConfirmModal(false);
-  //   setDeleteConfirmModal(false);
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const searchUser = users.find((user) => user.number === userToEdit);
+    const updatedUsers = users.filter((user) => user.number !== userToEdit);
 
-  // const handleEditConfirm = () => {
-  //   setEditConfirmModal(false);
-  // };
-
-  // const handleDeleteConfirm = () => {
-  //   setDeleteConfirmModal(false);
-  // };
+  }
+  const handleContinue = () => {
+    setEditConfirmModal(false);
+    setDeleteConfirmModal(false);
+  };
 
   return (
     <>
@@ -68,27 +81,75 @@ export default function AccountList() {
               number={user.number}
               type={user.type}
               isAdmin={user.isAdmin}
-              onEdit={() => handleEdit(user.number)}
+              onEdit={() => {
+                setEditConfirmModal(true);
+                setUserToEdit(user.number);
+                setUserNumber(user.number);
+                setUserHolder(user.holder);
+                setUserEmail(user.email);
+              }}
               onDelete={() => handleDelete(user.number)}
             />
           );
         })}
       </div>
       {/* this part is WIP  */}
-      {/* <AccountModal
-        isOpen={editConfirmModal}
-        onCancel={handleCancel}
-        onConfirm={handleEditConfirm}
-        confirmationType="edit"
-      />
+      {editConfirmModal && (
+        <>
+          <div className="modal">
+            <div className="modal-box">
+              <div className="modal-message">
+                <h1>Editing {userHolder}'s Account</h1>
+                <h2>{userToEdit}</h2>
+              </div>
+              <form className="edit-section">
+                <label>Account Holder</label>
+                <input
+                  autoFocus
+                  type="text"
+                  placeholder="Change Holder Name"
+                  name="name"
+                  id="name"
+                  defaultValue={userHolder}
+                  required
+                />
+                <label>Email Address</label>
+                <input
+                  type="email"
+                  placeholder="Change Email"
+                  name="email"
+                  id="email"
+                  defaultValue={userEmail}
+                  required
+                />
+                <label>Account Number</label>
+                <input
+                  type="text"
+                  value={userToEdit}
+                  placeholder="Change Account Number"
+                  name="accountNumber"
+                  id="accountNumber"
+                  disabled
+                />
+              </form>
+              <div className="modal-controls">
+                <button onClick={() => {
+                  handleContinue();
+                  // handleSubmit();
+                }}>Continue</button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
       {deleteConfirmModal && (
         <AccountModal
           isOpen={deleteConfirmModal}
-          onCancel={handleCancel}
-          onConfirm={handleDeleteConfirm}
-          confirmationType="delete"
+          operation="deleted"
+          accountSelected={userToDelete.holder}
+          onContinue={handleContinue}
         />
-      )} */}
+      )}
     </>
   );
 }
