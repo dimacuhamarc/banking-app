@@ -124,7 +124,7 @@ const EditDetails = () => {
       {editType !== '' && <h1>Edit {formatHolderName(editType)}</h1>}
       <form>
         <div>
-          {(editType === 'holder' || editType === '') && <button onClick={() => {setEditType('holder')}} >Edit Name</button>}
+          {editType === 'holder' || (editType === '' && <button onClick={() => {setEditType('holder')}} >Edit Name</button>)}
           {editType === 'holder' && (
             <div>
               <label>Account Holder</label>
@@ -134,7 +134,7 @@ const EditDetails = () => {
         </div>
 
         <div>
-        {(editType === 'email' || editType === '') && <button onClick={() => {setEditType('email')}} >Edit Email</button>}
+        {editType === 'email' || editType === '' && (<button onClick={() => {setEditType('email')}} >Edit Email</button>)}
             {editType === 'email' && (
               <div>
                 <label>Email Address</label>
@@ -144,7 +144,7 @@ const EditDetails = () => {
         </div>
 
         <div>
-        {(editType === 'password' || editType === '') && <button onClick={() => {setEditType('password')}} >Edit Password</button>}
+        {editType === 'password' || editType === '' && (<button onClick={() => {setEditType('password')}} >Edit Password</button>)}
             {editType === 'password' && (
               <div>
                 <label>Password</label>
