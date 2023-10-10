@@ -34,9 +34,9 @@ const DashboardNav = () => {
               <i className="fa-solid fa-users"></i>Accounts
             </NavLink>
           </div>
-          <div className='user-controls'>
+          {/* <div className='user-controls'>
             <Logout/>
-          </div>
+          </div> */}
         </div>
       </div>
     );
