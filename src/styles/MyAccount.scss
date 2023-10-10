@@ -1,9 +1,5 @@
 @use '/src/styles/_variables.scss' as *;
 
-* {
-  outline: 1px red solid;
-}
-
 .editUser {
   display: flex;
   flex-direction: row;

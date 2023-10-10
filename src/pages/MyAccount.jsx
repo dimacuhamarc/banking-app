@@ -134,7 +134,7 @@ const EditDetails = () => {
         </div>
 
         <div>
-        {editType === 'email' || editType === '' && (<button onClick={() => {setEditType('email')}} >Edit Email</button>)}
+        {editType === 'email' || (editType === '' && <button onClick={() => {setEditType('email')}} >Edit Email</button>)}
             {editType === 'email' && (
               <div>
                 <label>Email Address</label>
@@ -144,7 +144,7 @@ const EditDetails = () => {
         </div>
 
         <div>
-        {editType === 'password' || editType === '' && (<button onClick={() => {setEditType('password')}} >Edit Password</button>)}
+        {editType === 'password' || (editType === '' && <button onClick={() => {setEditType('password')}} >Edit Password</button>)}
             {editType === 'password' && (
               <div>
                 <label>Password</label>
@@ -152,7 +152,7 @@ const EditDetails = () => {
               </div>
             )}
           </div>
-          {editType !== '' && <span className="error-text">{error}</span>}
+          {editType !== '' && error !== '' && <div className="error">{error}</div>}
         {editType !== '' && <button className="button" onClick={handleSubmit}>Submit</button>}
       </form>
     </div>

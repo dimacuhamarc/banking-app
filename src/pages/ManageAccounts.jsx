@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AccountList from "../components/Accounts/AccountList";
 import EnrollAccount from "../components/Accounts/AccountActions/EnrollAccount";
 import "../styles/ManageAccounts.scss";
+import { AccountBanking } from "../components/Accounts/AccountBanking";
 
 const ManageAccounts = () => {
   const [accounts, setAccounts] = useState([]);
@@ -27,7 +28,10 @@ const ManageAccounts = () => {
     <div className="main">
       <div className="titlebar">
         <h1>Manage Accounts</h1>
-        <EnrollAccount onEnroll={handleAddAccount} />
+        <div className="manageButtons">
+          <AccountBanking />
+          <EnrollAccount onEnroll={handleAddAccount} />
+        </div>
       </div>
       <div className="accounts">
         <AccountList />
