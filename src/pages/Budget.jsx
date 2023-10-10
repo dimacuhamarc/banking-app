@@ -21,6 +21,7 @@ function Budget() {
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [chartLabels, setChartLabels] = useState([]);
   const [chartData, setChartData] = useState([]);
+  const [remainingBalance, setRemainingBalance] = useState(0);
 
   // will initialize the data from input-expenses.json
   useEffect(() => {
@@ -32,14 +33,6 @@ function Budget() {
     if (storedExpenses) {
       setExpenses(JSON.parse(storedExpenses));
     }
-    const storedUserData = localStorage.getItem("userData");
-    if (storedUserData) {
-      const userData = JSON.parse(storedUserData);
-      const adminAccount = userData.find((account) => account.type === "Admin");
-      if (adminAccount) {
-        setTotalSavingsBalance(adminAccount.balance);
-      }
-    }
   }, []);
 
   useEffect(() => {
@@ -48,14 +41,26 @@ function Budget() {
       const parsedExpenses = JSON.parse(storedExpenses);
       const newTotalExpenses = parsedExpenses.reduce((total, expense) => total + expense.expense_cost, 0);
       setTotalExpenses(newTotalExpenses);
-      const remainingBalance = totalSavingsBalance - newTotalExpenses;
-      const updatedChartLabels = [...parsedExpenses.map((expense) => expense.expense_name), "Remaining Balance",];
-      const updatedChartData = [...parsedExpenses.map((expense) => expense.expense_cost), remainingBalance,];
+      
+      const storedUserData = localStorage.getItem("userData");
+      if (storedUserData) {
+        const userData = JSON.parse(storedUserData);
+        const adminAccount = userData.find((account) => account.isAdmin === true );
+        console.log("Admin account balance:", adminAccount.balance);
+        if (adminAccount) {
+          setTotalSavingsBalance(adminAccount.balance);
+        }
+      }
+      const calculatedRemainingBalance = totalSavingsBalance - newTotalExpenses;
+      setRemainingBalance(calculatedRemainingBalance);
+      const updatedChartLabels = [...parsedExpenses.map((expense) => expense.expense_name), "Remaining Balance"];
+      const updatedChartData = [...parsedExpenses.map((expense) => expense.expense_cost), remainingBalance];
+      
       setChartLabels(updatedChartLabels);
       setChartData(updatedChartData);
     }
-  }, [totalExpenses, totalSavingsBalance]);
-
+  }, [totalExpenses, totalSavingsBalance, remainingBalance]);
+  
   const handleExpenses = (newExpense) => {
     if (editingExpense) {
       setExpenses((prevExpenses) =>
@@ -69,18 +74,31 @@ function Budget() {
       localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
       setEditingExpense(null);
       setShowEditModal(false);
+
+      const newTotalExpenses = updatedExpenses.reduce((total, expense) => total + expense.expense_cost, 0);
+      setTotalExpenses(newTotalExpenses);
+      const remainingBalance = totalSavingsBalance - newTotalExpenses;
+      setChartLabels([...updatedExpenses.map((expense) => expense.expense_name), "Remaining Balance"]);
+      setChartData([...updatedExpenses.map((expense) => expense.expense_cost), remainingBalance]);
     } else {
       setExpenses((prevExpenses) => {
         const updatedExpenses = [...prevExpenses, newExpense];
         localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+  
+        const newTotalExpenses = updatedExpenses.reduce((total, expense) => total + expense.expense_cost, 0);
+        setTotalExpenses(newTotalExpenses);
+        const remainingBalance = totalSavingsBalance - newTotalExpenses;
+        setChartLabels([...updatedExpenses.map((expense) => expense.expense_name), "Remaining Balance"]);
+        setChartData([...updatedExpenses.map((expense) => expense.expense_cost), remainingBalance]);
+  
         return updatedExpenses;
       });
       setTimeout(() => {
         window.location.reload();
-      }, 2000);
+      }, 1000);
     }
   };
-
+  
   const handleEditExpense = (expense) => {
     setEditingExpense(expense);
     setShowEditModal(true);
@@ -115,7 +133,6 @@ function Budget() {
     setShowDeleteModal(false);
   };
 
-  const remainingBalance = totalSavingsBalance - totalExpenses;
 
   return (
     <div className="main">

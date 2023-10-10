@@ -3,39 +3,39 @@ import warningGIF from "../../assets/warning.gif";
 import "./AccountCardModal.scss";
 import { formatAccountNumber, formatData } from "../../utils/formatData";
 
-export default function AccountCard(props) {
-  const [balance, setBalance] = useState(0);
-  const [holder, setHolder] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
-  const [type, setType] = useState("");
-  const [admin, setAdmin] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState("");
+export default function AccountCard({ balance, holder, number, type, isAdmin, onEdit, onDelete }) {
+  // const [balance, setBalance] = useState(0);
+  // const [holder, setHolder] = useState("");
+  // const [accountNumber, setAccountNumber] = useState("");
+  // const [type, setType] = useState("");
+  // const [admin, setAdmin] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
+  // const [modalType, setModalType] = useState("");
 
-  const handleUserDetails = () => {
-    setBalance(props.balance);
-    setHolder(props.holder);
-    setAccountNumber(props.number);
-    setType(props.type);
-    setAdmin(props.isAdmin);
-  };
+  // const handleUserDetails = () => {
+  //   setBalance(props.balance);
+  //   setHolder(props.holder);
+  //   setAccountNumber(props.number);
+  //   setType(props.type);
+  //   setAdmin(props.isAdmin);
+  // };
 
-  useEffect(() => {
-    handleUserDetails();
-  }, [props]);
+  // useEffect(() => {
+  //   handleUserDetails();
+  // }, [props]);
 
   const handleAdmin = () => {
-    if (!admin) {
+    if (!isAdmin) {
       return (
         <div className="controls">
           <div>
-            <button onClick={handleEdit}>
+            <button onClick={() => onEdit(number)}>
               <i className="fa-solid fa-pen-to-square"></i>
             </button>
           </div>
 
           <div>
-            <button onClick={handleDelete}>
+            <button onClick={() => onDelete(number)}>
               <i className="fa-solid fa-delete-left"></i>
             </button>
           </div>
@@ -45,24 +45,22 @@ export default function AccountCard(props) {
   };
 
   const formattedBalance = formatData(balance);
-  const formattedAccountNumber = formatAccountNumber(accountNumber);
+  const formattedAccountNumber = formatAccountNumber(number);
 
-  const handleDelete = () => {
-    setShowModal(true);
-    setModalType("Delete");
-  };
+  // const handleDelete = () => {
+  //   setShowModal(true);
+  //   setModalType("Delete");
+  // };
 
-  const handleEdit = () => {
-    setShowModal(true);
-    setModalType("Edit");
-  };
+  // const handleEdit = () => {
+  //   setShowModal(true);
+  //   setModalType("Edit");
+  // };
 
-  const closeModalHandler = () => {
-    setShowModal(false);
-    setModalType("");
-  };
-
-
+  // const closeModalHandler = () => {
+  //   setShowModal(false);
+  //   setModalType("");
+  // };
 
   return (
     <>
@@ -75,44 +73,47 @@ export default function AccountCard(props) {
       </div>
       {handleAdmin()}
     </div>
-    {showModal && <AccountModal modalType={modalType} closeModalHandler={closeModalHandler} user={props}/>}
+    {/* {showModal && <AccountModal modalType={modalType} closeModalHandler={closeModalHandler} user={props}/>} */}
     </>
   );
 }
 
-const AccountModal = ({ modalType, closeModalHandler, user }) => {
-  const [balance, setBalance] = useState(0);
-  const [holder, setHolder] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
-  const [accountID, setAccountID] = useState("");
 
-  const handleUserDetails = () => {
-    setBalance(formatData(user.balance));
-    setHolder(user.holder);
-    setAccountNumber(formatAccountNumber(user.number));
-    setAccountID(user.id);
-  };
+// PAU NOTES: We can reuse this sa AccountList
 
-  useEffect(() => {
-    handleUserDetails();
-  },[]);
+// const AccountModal = ({ modalType, closeModalHandler, user }) => {
+//   const [balance, setBalance] = useState(0);
+//   const [holder, setHolder] = useState("");
+//   const [accountNumber, setAccountNumber] = useState("");
+//   const [accountID, setAccountID] = useState("");
 
-  return (
-    <div className="modal">
-      <div className="modal-box">
-        <img src={warningGIF} alt="warning" />
-        <div className="modal-message">
-          <h1> Are you sure you want to {modalType} this user? </h1>
-          <h2>{holder}</h2>
-          <p>{accountNumber}</p>
-          <span>{balance}</span>
-        </div>
-        <div className="modal-controls">
-          <button>Confirm</button>
-          <button onClick={closeModalHandler}>Cancel</button>
-        </div>
-      </div>
-    </div>
-  );
-};
+//   const handleUserDetails = () => {
+//     setBalance(formatData(user.balance));
+//     setHolder(user.holder);
+//     setAccountNumber(formatAccountNumber(user.number));
+//     setAccountID(user.id);
+//   };
+
+//   useEffect(() => {
+//     handleUserDetails();
+//   },[]);
+
+//   return (
+//     <div className="modal">
+//       <div className="modal-box">
+//         <img src={warningGIF} alt="warning" />
+//         <div className="modal-message">
+//           <h1> Are you sure you want to {modalType} this user? </h1>
+//           <h2>{holder}</h2>
+//           <p>{accountNumber}</p>
+//           <span>{balance}</span>
+//         </div>
+//         <div className="modal-controls">
+//           <button>Confirm</button>
+//           <button onClick={closeModalHandler}>Cancel</button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
