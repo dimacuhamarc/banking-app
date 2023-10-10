@@ -34,13 +34,13 @@ export default function ControlCard() {
     <>
       <div className="control-card card">
         <div>
-          <button onClick={depositHandler}>Deposit</button>
+          <button onClick={depositHandler}><i className="fa-solid fa-money-bill"></i>Deposit</button>
         </div>
         <div>
-          <button onClick={withdrawHandler}>Withdraw</button>
+          <button onClick={withdrawHandler}><i className="fa-solid fa-wallet"></i>Withdraw</button>
         </div>
         <div>
-          <button onClick={transferHandler}>Transfer</button>
+          <button onClick={transferHandler}><i className="fa-solid fa-money-bill-transfer"></i>Transfer</button>
         </div>
       </div>
       {showModal && (
@@ -65,7 +65,7 @@ const ControlModal = ({ModalType, closeModalHandler}) => {
   const [amount, setAmount] = useState(null);
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
-  const [isError, setIsError] = useState(true);
+  const [isError, setIsError] = useState(false);
   const [selectError, setSelectError] = useState(true);
 
   useEffect(() => {

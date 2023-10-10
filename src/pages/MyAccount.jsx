@@ -28,7 +28,7 @@ const MyAccount = () => {
   return (
     <div className='main'>
       <div className='titlebar'>
-        <h1>My Account</h1><button className="button" onClick={toggleEdit}>Edit Profile</button>
+        <h1>My Account</h1><button className="button" onClick={toggleEdit}><i className="fa-solid fa-user-pen"></i> Details</button>
       </div>
       <div className='dashboard-cards'>
         <UserBalance />
@@ -124,7 +124,7 @@ const EditDetails = () => {
       {editType !== '' && <h1>Edit {formatHolderName(editType)}</h1>}
       <form>
         <div>
-          {editType === 'holder' || (editType === '' && <button onClick={() => {setEditType('holder')}} >Edit Name</button>)}
+          {editType === 'holder' || (editType === '' && <button onClick={() => {setEditType('holder')}} ><i className="fa-solid fa-pen"></i> Name</button>)}
           {editType === 'holder' && (
             <div>
               <label>Account Holder</label>
@@ -134,7 +134,7 @@ const EditDetails = () => {
         </div>
 
         <div>
-        {editType === 'email' || (editType === '' && <button onClick={() => {setEditType('email')}} >Edit Email</button>)}
+        {editType === 'email' || (editType === '' && <button onClick={() => {setEditType('email')}} ><i className="fa-solid fa-pen"></i> Email</button>)}
             {editType === 'email' && (
               <div>
                 <label>Email Address</label>
@@ -144,7 +144,7 @@ const EditDetails = () => {
         </div>
 
         <div>
-        {editType === 'password' || (editType === '' && <button onClick={() => {setEditType('password')}} >Edit Password</button>)}
+        {editType === 'password' || (editType === '' && <button onClick={() => {setEditType('password')}} ><i className="fa-solid fa-pen"></i> Pin</button>)}
             {editType === 'password' && (
               <div>
                 <label>Password</label>

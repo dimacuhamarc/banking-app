@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AccountList from "../components/Accounts/AccountList";
 import EnrollAccount from "../components/Accounts/AccountActions/EnrollAccount";
 import "../styles/ManageAccounts.scss";
-import { AccountBanking } from "../components/Accounts/AccountBanking";
+import { AccountBanking } from "../components/Accounts/AccountActions/AccountBanking";
 
 const ManageAccounts = () => {
   const [accounts, setAccounts] = useState([]);
