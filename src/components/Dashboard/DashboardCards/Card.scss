@@ -13,6 +13,8 @@
   box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+  width: calc((100vw - 287px)/3);
+  
 
   .card-header {
     display: flex;

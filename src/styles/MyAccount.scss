@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   background: $card-control;
-  width: calc(100vw - 40rem) !important;
+  width: calc(((100vw - 287px)/2));
   padding: 0 3rem;
   transition: all 0.2s ease-in-out;
   border-radius: 20px;
