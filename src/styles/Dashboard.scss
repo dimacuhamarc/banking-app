@@ -9,12 +9,19 @@ body {
   .dashboard-cards {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 1rem;
     flex-wrap: wrap;
     width: calc(100vw - 255px);
-    height: 10rem;
+    height: auto;
     row-gap: 1rem;
+    
   }
+  // img {
+  //   position:absolute;
+  //   bottom: 30px;
+  //   left: 900px;
+  // }
 }
 
 .dashboard  * {

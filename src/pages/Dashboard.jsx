@@ -3,6 +3,7 @@ import '../App.scss';
 import {Card, CardStyles} from '../components/Dashboard/DashboardCards/Card';
 import { Link } from "react-router-dom";
 import UserBalance from '../components/Dashboard/UserBalance';
+import dashBG from "../assets/dasb.png";
 
 const Dashboard = () => {
   return (
@@ -14,9 +15,6 @@ const Dashboard = () => {
         <div className='dashboard-cards'>
           <div>
             <UserBalance />
-            <div>
-              
-            </div>
           </div>
           <Link to='/budget'>
             <Card 
@@ -34,6 +32,9 @@ const Dashboard = () => {
           </Link>
         </div>
       </div>
+      {/* <div>
+        <img src={dashBG} id='gif' alt="Success" />
+      </div> */}
     </div>
   );
 };

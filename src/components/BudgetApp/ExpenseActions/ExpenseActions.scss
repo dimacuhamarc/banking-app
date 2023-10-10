@@ -31,6 +31,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-content: center;
     }
 
     .modal-content input {
@@ -80,6 +81,7 @@
 
     h3, p {
       color: $cod-gray !important;
+      text-align: center;
     }
   }
   
@@ -107,7 +109,6 @@
     cursor: pointer;
     margin: 20px 0 10px 0;
     font-family: inherit;
-
     &:hover {
         background-color: $ebony-clay;
     }

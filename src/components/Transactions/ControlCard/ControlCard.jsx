@@ -34,13 +34,13 @@ export default function ControlCard() {
     <>
       <div className="control-card card">
         <div>
-          <button onClick={depositHandler}>Deposit</button>
+          <button onClick={depositHandler}><i className="fa-solid fa-money-bill"></i>Deposit</button>
         </div>
         <div>
-          <button onClick={withdrawHandler}>Withdraw</button>
+          <button onClick={withdrawHandler}><i className="fa-solid fa-wallet"></i>Withdraw</button>
         </div>
         <div>
-          <button onClick={transferHandler}>Transfer</button>
+          <button onClick={transferHandler}><i className="fa-solid fa-money-bill-transfer"></i>Transfer</button>
         </div>
       </div>
       {showModal && (
@@ -64,6 +64,9 @@ const ControlModal = ({ModalType, closeModalHandler}) => {
   const [acReciever, setAcReciever] = useState('');
   const [amount, setAmount] = useState(null);
   const [users, setUsers] = useState([]);
+  const [error, setError] = useState('');
+  const [isError, setIsError] = useState(false);
+  const [selectError, setSelectError] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -86,6 +89,71 @@ const ControlModal = ({ModalType, closeModalHandler}) => {
   const formattedBalance = formatData(balance);
   const formattedAccountNumber = formatAccountNumber(acHolder);
   const formattedAmount = formatData(amount);
+
+  const errorHandler = (amount, type) => {
+    if (type === 'Withdraw') {
+      if (amount > balance) {
+        setError('Insufficient Funds');
+        setIsError(true);
+      } else if(amount < 100 && amount > 0){
+        setError('Minimum withdraw amount is 100');
+        setIsError(true);
+      }
+      else if (amount <= 0) {
+        setError('Cannot process zero or negative amount ');
+        setIsError(true);
+      }
+      else {
+        setError('');
+        setIsError(false);
+      }
+    } else if (type === 'Deposit') {
+      if (amount <= 0) {
+        setError('Cannot process zero or negative amount ');
+        setIsError(true);
+      }
+      else if(amount < 100 && amount > 0){
+        setError('Minimum deposit amount is 100');
+        setIsError(true);
+      }
+      else {
+        setError('');
+        setIsError(false);
+      }
+    } else if (type === 'Transfer') {
+      if (!selectError) {
+        if (amount > balance) {
+          setError('Insufficient Funds');
+          setIsError(true);
+        }
+        else if(amount < 100 && amount > 0){
+          setError('Minimum transfer amount is 100');
+          setIsError(true);
+        }
+        else if (amount <= 0) {
+          setError('Cannot process zero or negative amount ');
+          setIsError(true);
+        }
+        else {
+          setError('');
+          setIsError(false);
+        }
+      } else {
+        setError('Please select an account');
+        setIsError(true);
+      }
+    }
+  }
+
+  const transferErrorHandler = (value) => {
+    if (value === '') {
+      setSelectError(true);
+      setIsError(true);
+    } else {
+      setSelectError(false);
+      setIsError(false);
+    }
+  }
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
@@ -181,11 +249,11 @@ const ControlModal = ({ModalType, closeModalHandler}) => {
             type="number"
             value={amount}
             placeholder="Enter Amount Here"
-            onChange={(event) => setAmount(event.target.value)}/>
+            onChange={(event) => {setAmount(event.target.value); errorHandler(event.target.value,ModalType);}}/>
 
             {ModalType === 'Transfer' && (
-              <select value={acReciever} onChange={(event) => setAcReciever(event.target.value)}>
-                <option value=''>Select Account</option>
+              <select value={acReciever} onChange={(event) => {setAcReciever(event.target.value); transferErrorHandler(event.target.value)}}>
+                <option selected value=''>Select Account</option>
                 {users.splice(1,users.length).map((user) => (
                   <option key={user.id} value={user.number}>
                     {user.holder} | {formatAccountNumber(user.number)}
@@ -194,9 +262,10 @@ const ControlModal = ({ModalType, closeModalHandler}) => {
               </select>
             )}
           <label>{ModalType} Amount: {formattedAmount}</label>
-          <button id='btn-submit'>
+          <button id='btn-submit' disabled={isError}>
             {ModalType}
           </button>
+          {isError && <div className="error">{error}</div>}
         </form>
         <div className="control-modal-close">
           <button onClick={closeModalHandler}>X</button>

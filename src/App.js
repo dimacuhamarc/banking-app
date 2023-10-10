@@ -25,7 +25,7 @@ function App() {
     <div className="App">
       {Authenticated && <DashboardNav />}
       <Routes>
-        <Route exact path='/' element={Authenticated ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route exact path='/' element={Authenticated ? <Dashboard /> : <Navigate to="/dashboard" />} />
         <Route path="/login" element={<Login/>} />
 
         <Route exact path='/dashboard' element={Authenticated ? <Dashboard /> : <Navigate to="/login" />} />

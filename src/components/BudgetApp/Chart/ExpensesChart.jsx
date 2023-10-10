@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import Chart from 'chart.js';
 
 
@@ -19,7 +19,7 @@ const ExpenseChart = ( { labels, data }) => {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
       },
     });
   }, [data]);
